@@ -12,7 +12,7 @@ module.exports = db => db.define('products', {
   },
   description: TEXT,
   categories: ARRAY(INTEGER), // this is an array of category IDs
-  // rating: DECIMAL(10, 1)  // add this later.  and write an instance method for setting average??
+  // rating: DECIMAL(1, 1)  // add this later.  and write an instance method for setting average??
   reviews: ARRAY(INTEGER),  // this is an array of review IDs
 
 }, {
