@@ -22,7 +22,7 @@ module.exports = db => db.define('users', {
   isAdmin: {
     type: BOOLEAN,
     defaultValue: false
-  }
+  },
 }, {
   indexes: [{fields: ['email'], unique: true}],
   hooks: {
@@ -43,6 +43,7 @@ module.exports = db => db.define('users', {
 module.exports.associations = (User, {OAuth, Thing, Favorite}) => {
   User.hasOne(OAuth)
   // User.belongsToMany(Thing, {as: 'favorites', through: Favorite})
+  // User.hasMany(Review, { foreignKey: 'userId' })
 }
 
 function setEmailAndPassword(user) {
