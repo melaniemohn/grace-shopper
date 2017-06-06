@@ -22,7 +22,7 @@ module.exports = db => db.define('products', {
 })
 
 // HEY FIX THIS
-// module.exports.associations = (Product, {Review, Category}) => {
-//   Product.hasMany(Review)
-//   Product.hasMany(Category)
-// }
+module.exports.associations = (Product, {Review, Category}) => {
+  Product.hasMany(Review)
+  Product.hasMany(Category)
+}
