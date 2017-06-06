@@ -23,8 +23,7 @@ module.exports = db => db.define('products', {
   // stars: ARRAY(INTEGER),
 })
 
-// HEY FIX THIS
-// module.exports.associations = (Product, {Review, Category}) => {
-//   Product.hasMany(Review, { foreignKey: 'ProductId' })
-//   Product.hasMany(Category)
-// }
+module.exports.associations = (Product, {Review, Category}) => {
+  Product.hasMany(Review)
+  Product.hasMany(Category)
+}
