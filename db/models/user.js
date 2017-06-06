@@ -13,18 +13,13 @@ module.exports = db => db.define('users', {
     type: STRING,
     validate: {
       isEmail: true,
-      unique: true,
-      allowNull: false
+      notEmpty: true,
     }
   },
 
   // We support oauth, so users may or may not have passwords.
   password_digest: STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
   password: VIRTUAL, // Note that this is a virtual, and not actually stored in DB
-  photo: {
-    type: STRING,
-    defaultValue: '/images/default-photo.jpg'
-  },
   shipAddress: STRING,
   paymentInfo: STRING,  // we might not use this?  think about stripe / paypal as alternative
   isAdmin: {
