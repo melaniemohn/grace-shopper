@@ -16,8 +16,7 @@ module.exports = db => db.define('products', {
     allowNull: false,
     defaultValue: 0.0
   },
-  description: TEXT,
-  categories: ARRAY(INTEGER), // this is an array of category IDs
+  description: TEXT
   // rating: DECIMAL(1, 1)  // add this later.  and write a getter method for setting average????
   // reviews: ARRAY(INTEGER),  // this is an array of review IDs
   // stars: ARRAY(INTEGER),
