@@ -2,6 +2,7 @@
 
 const db = require('APP/db')
 const User = db.model('users')
+const Orders = db.model('orders')
 
 const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 
@@ -29,3 +30,26 @@ module.exports = require('express').Router()
       User.findById(req.params.id)
       .then(user => res.json(user))
       .catch(next))
+  .get('/:id/orders', mustBeLoggedIn,
+    (req, res, next) => {
+      const userId = req.params.id
+      Orders.findAll({
+        where: {
+          user_id: userId
+        }
+      })
+      .then((orders) => { res.seStatus(201).json(orders) })
+      .cathc(next)
+    })
+  .get('/:id/orders/:orderId', mustBeLoggedIn,
+    (req, res, next) => {
+      const userId = req.params.id
+      const orderId = req.params.orderId
+      Orders.findOne({
+        where: {
+          id: orderId,
+          user_id: userId
+        }
+      }).then((order) => res.json(order))
+      .catch(next)
+    })
