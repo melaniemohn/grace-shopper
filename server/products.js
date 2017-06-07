@@ -4,14 +4,14 @@ const db = require('APP/db')
 const Product = db.model('products')
 
 module.exports = require('express').Router()
-  .get('/products',
+  .get('/',
     // get all products
     (req, res, next) =>
       Product.findAll()
         .then(products => res.status(200).json(products))
         .catch(next))
     // get one product
-  .get('/products/:productId',
+  .get('/:productId',
     (req, res, next) => {
       let id = req.params.productId
       Product.findById(id)
@@ -27,13 +27,13 @@ module.exports = require('express').Router()
     })
     // ============== THE BELOW ARE ONLY AVAILABLE TO ADMIN USERS ==============
     // creates a product
-  .post('/products',
+  .post('/',
     (req, res, next) =>
       Product.create(req.body)
       .then(product => res.status(201).json(product))
       .catch(next))
     // deletes a product
-  .delete('/products/:productId',
+  .delete('/:productId',
     (req, res, next) => {
       let id = req.params.productId
       Product.findById(id)
@@ -43,7 +43,7 @@ module.exports = require('express').Router()
       .catch(next)
     })
     // updates a product
-  .put('/products/:productId',
+  .put('/:productId',
     (req, res, next) => {
       let id = req.params.productId
       Product.findById(id)
