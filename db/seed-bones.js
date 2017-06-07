@@ -1,62 +1,71 @@
 'use strict'
 
 const db = require('APP/db')
-    , {User, Product, Order, Category, Review, Promise} = db
+    , {User, Thing, Favorite, Promise} = db
     , {mapValues} = require('lodash')
 
 function seedEverything() {
   const seeded = {
     users: users(),
-    categories: categories(),
+    things: things(),
   }
 
-  seeded.products = products(seeded)
-  seeded.orders = orders(seeded)
-  seeded.reviews = reviews(seeded)
+  seeded.favorites = favorites(seeded)
 
   return Promise.props(seeded)
 }
 
 const users = seed(User, {
-  melanie: {
-    email: 'melanie@gh.com',
-    name: 'Melanie',
+  god: {
+    email: 'god@example.com',
+    name: 'So many names',
     password: '1234',
-    isAdmin: true,
-  },
-  grace: {
-    email: 'gracehopper@gh.com',
-    name: 'Grace Hopper',
-    password: '1234',
-    isAdmin: false,
   },
   barack: {
-    email: 'barack@gh.gov',
     name: 'Barack Obama',
-    password: '1234',
-    isAdmin: false,
+    email: 'barack@example.gov',
+    password: '1234'
   },
 })
 
-const products = seed(Product, {
-  // products here
+const things = seed(Thing, {
+  surfing: {name: 'surfing'},
+  smiting: {name: 'smiting'},
+  puppies: {name: 'puppies'},
 })
 
-const orders = seed(Order, {
-  // orders here
-})
-
-const categories = seed(Category, {
-  // categories here
-})
-
-const reviews = seed(Review, {
-  // reviews here
-})
-
-// we need to seed our associations, too?
-// use a function?  the way bones did with favorites
-// something like... ProductCategory (?)
+const favorites = seed(Favorite,
+  // We're specifying a function here, rather than just a rows object.
+  // Using a function lets us receive the previously-seeded rows (the seed
+  // function does this wiring for us).
+  //
+  // This lets us reference previously-created rows in order to create the join
+  // rows. We can reference them by the names we used above (which is why we used
+  // Objects above, rather than just arrays).
+  ({users, things}) => ({
+    // The easiest way to seed associations seems to be to just create rows
+    // in the join table.
+    'obama loves surfing': {
+      user_id: users.barack.id,    // users.barack is an instance of the User model
+                                   // that we created in the user seed above.
+                                   // The seed function wires the promises so that it'll
+                                   // have been created already.
+      thing_id: things.surfing.id  // Same thing for things.
+    },
+    'god is into smiting': {
+      user_id: users.god.id,
+      thing_id: things.smiting.id
+    },
+    'obama loves puppies': {
+      user_id: users.barack.id,
+      thing_id: things.puppies.id
+    },
+    'god loves puppies': {
+      user_id: users.god.id,
+      thing_id: things.puppies.id
+    },
+  })
+)
 
 if (module === require.main) {
   db.didSync
@@ -87,7 +96,6 @@ class BadRow extends Error {
 // a Promise of the object of all seeded rows.
 //
 // The function form can be used to initialize rows that reference other models.
-
 function seed(Model, rows) {
   return (others={}) => {
     if (typeof rows === 'function') {
@@ -126,5 +134,4 @@ function seed(Model, rows) {
   }
 }
 
-// we might not need ALL of these
-module.exports = Object.assign(seed, {users, products, orders, categories, reviews})
+module.exports = Object.assign(seed, {users, things, favorites})

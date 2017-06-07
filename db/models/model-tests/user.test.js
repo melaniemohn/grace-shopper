@@ -16,7 +16,31 @@ import sinon from 'sinon'
 
 /* global describe it before afterEach */
 
-describe('User model tests', () => {
+console.log('testing users!')
+
+describe('User', () => {
   before('Await database sync', () => db.didSync)
   afterEach('Sync and clear database', () => db.sync({force: true}))
+
+  describe('User model validations', () => {
+    it('requires email', () => {
+      const user = User.build()
+      return user.validate()
+        .then(err => {
+          expect(err).to.be.an('object')
+        })
+    })
+  })
+
+  describe('User authentication', () => {
+    it('resolves true if the password matches', () =>
+      User.create({ password: 'ok' })
+        .then(user => user.authenticate('ok'))
+        .then(result => expect(result).to.be.true))
+
+    it("resolves false if the password doesn't match", () =>
+      User.create({ password: 'ok' })
+        .then(user => user.authenticate('not ok'))
+        .then(result => expect(result).to.be.false))
+  })
 })
