@@ -22,7 +22,8 @@ module.exports = db => db.define('products', {
   // stars: ARRAY(INTEGER),
 })
 
-module.exports.associations = (Product, {Review, Category}) => {
+module.exports.associations = (Product, {Review, Category, OrderItem}) => {
   Product.hasMany(Review)
   Product.belongsTo(Category)
+  Product.hasMany(OrderItem)
 }
