@@ -5,7 +5,6 @@ const db = require('APP/db')
     , {expect} = require('chai')
 
 /* global describe it before afterEach */
-
 describe('User', () => {
   before('Await database sync', () => db.didSync)
   afterEach('Clear the tables', () => db.truncate({ cascade: true }))

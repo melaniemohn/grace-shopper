@@ -7,12 +7,16 @@ module.exports = db => db.define('orders', {
   products: {
     type: ARRAY(INTEGER),
     set: (value) => {
+      console.log('in orders db', this)
       let currentListOfProducts = this.getDataValue('products')
       currentListOfProducts.push(value)
-      this.setDataValue('procucts', currentListOfProducts)
+      this.setDataValue('products', currentListOfProducts)
     }
   },
-  status: ENUM('created', 'completed')
+  status: {
+    type: ENUM('created', 'completed'),
+    defaultValue: 'created'
+  }
 }, {
   getterMethods: {
     productWithQuantity: () => {
