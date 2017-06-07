@@ -77,8 +77,8 @@ passport.serializeUser((user, done) => {
   done(null, user.id)
 })
 
-passport.deserializeUser(
-  (id, done) => {
+passport.deserializeUser( // id is a string, making it an object, and using it to find user in our findById
+  (id, done) => { // assuming someone is logged in
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {

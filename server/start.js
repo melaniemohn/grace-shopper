@@ -46,7 +46,7 @@ module.exports = app
 
   // Authentication middleware
   .use(passport.initialize())
-  .use(passport.session())
+  .use(passport.session()) // this hooks into our session and calls passport.deserializeUser. session has an ID on it.
 
   // Serve static files from ../public
   .use(express.static(resolve(__dirname, '..', 'public')))
