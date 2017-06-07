@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6b37663c-5386-4ebc-928b-61c8fcdaa035" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/models/order.test.js" afterPath="$PROJECT_DIR$/db/models/order.test.js" />
-    </list>
+    <list default="true" id="6b37663c-5386-4ebc-928b-61c8fcdaa035" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -47,7 +45,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="order.test.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="order.test.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/models/order.test.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="540">
@@ -69,7 +67,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="order.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="order.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/db/models/order.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
@@ -289,12 +287,12 @@
       <option name="presentableId" value="Default" />
       <updated>1496757251643</updated>
       <workItem from="1496757255539" duration="598000" />
-      <workItem from="1496780238406" duration="9356000" />
+      <workItem from="1496780238406" duration="9848000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9954000" />
+    <option name="totallyTimeSpent" value="10446000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-213" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -378,14 +376,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/models/order.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/models/order.test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -393,6 +383,14 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/models/order.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
