@@ -18,7 +18,7 @@ module.exports = require('express').Router()
       .then(product => {
         if (!product) {
           let err = new Error('Product not found')
-          err.status(404)
+          err.status = 404
           throw err
         }
         res.json(product)
