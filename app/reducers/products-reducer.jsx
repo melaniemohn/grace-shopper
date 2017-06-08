@@ -42,3 +42,5 @@ export const fetchOneProducts = (productId) =>
     axios.get(`/api/products/${productId}`)
       .then(res => dispatch(getProducts(res.data)))
       .catch(err => console.error('Fetching product unsuccessful', err))
+
+export default reducer
