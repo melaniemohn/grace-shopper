@@ -42,9 +42,8 @@
 
   module.exports.associations = (User, {OAuth, Review}) => {
     User.hasOne(OAuth)
-    User.hasMany(Review, { foreignKey: 'userId' })
+    User.hasMany(Review, { foreignKey: 'author_id' })
   }
-
   function setEmailAndPassword(user) {
     user.email = user.email && user.email.toLowerCase()
     if (!user.password) return Promise.resolve(user)
