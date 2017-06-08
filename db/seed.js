@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('APP/db')
-    , {User, Product, Order, Category, Review, Promise} = db
+    , {User, Product, Order, OrderItem, Category, Review, Promise} = db
     , {mapValues} = require('lodash')
 
 function seedEverything() {
@@ -11,52 +11,237 @@ function seedEverything() {
   }
 
   seeded.products = products(seeded)
-  seeded.orders = orders(seeded)
   seeded.reviews = reviews(seeded)
+  seeded.orders = orders(seeded)
+  seeded.orderItems = orderItems(seeded)
 
   return Promise.props(seeded)
 }
 
 const users = seed(User, {
   melanie: {
-    email: 'melanie@gh.com',
+    email: 'melanie@me.limo',
     name: 'Melanie',
     password: '1234',
-    isAdmin: true,
+    isAdmin: true
+  },
+  jenna: {
+    email: 'jenna@geonna.gum',
+    name: 'Jenna',
+    password: '1234',
+    isAdmin: true
+  },
+  jasmine: {
+    email: 'jasmine@gh.com',
+    name: 'Jasmine',
+    password: '1234',
+    isAdmin: true
+  },
+  kaisin: {
+    email: 'kaisin@gh.com',
+    name: 'Kaisin',
+    password: '1234',
+    isAdmin: true
   },
   grace: {
     email: 'gracehopper@gh.com',
     name: 'Grace Hopper',
     password: '1234',
-    isAdmin: false,
+    shipAddress: '5 Hanover Square, Floor 13',
+    isAdmin: false
   },
   barack: {
     email: 'barack@gh.gov',
     name: 'Barack Obama',
     password: '1234',
-    isAdmin: false,
+    shipAddress: '1600 Pennsylvania Avenue',
+    isAdmin: false
   },
 })
 
-const products = seed(Product, {
-  // products here
-})
-
-const orders = seed(Order, {
-  // orders here
-})
-
 const categories = seed(Category, {
-  // categories here
+  // add images to categories?
+  food: {
+    name: 'Food'
+  },
+  coffee: {
+    name: 'Coffee'
+  },
+  tea: {
+    name: 'Tea'
+  },
+  juice: {
+    name: 'Juice'
+  }
 })
 
-const reviews = seed(Review, {
-  // reviews here
-})
+const products = seed(Product,
+// use a function here, instead of a 'rows' object
+// the function lets us receive and reference the previously-seeded rows
+  ({categories}) => ({
+    java: {
+      name: 'Cup of Java',
+      picture: '',
+      price: 2.00,
+      description: 'Keep it old school.',
+      category_id: categories.coffee.id
+    },
+    vanillajs: {
+      name: 'Vanilla JS Latte',
+      picture: '',
+      price: 3.75,
+      description: 'Simple pleasures.',
+      category_id: categories.coffee.id
+    },
+    coffee: {
+      name: 'Cold-Brew CoffeeScript',
+      picture: '',
+      price: 4.50,
+      description: 'We added a spoonful of syntactic sugar to make our cold-brew the smoothest around.',
+      category_id: categories.coffee.id
+    },
+    expresso: {
+      name: 'Express-o',
+      picture: '',
+      price: 2.50,
+      description: 'Fast, unopinionated, minimalist caffeine framework for Node.js.',
+      category_id: categories.coffee.id
+    },
+    mocha: {
+      name: 'Mocha',
+      picture: '',
+      price: 3.75,
+      description: 'Our Mocha passes the test.',
+      category_id: categories.coffee.id
+    },
+    chai: {
+      name: 'Chai Tea',
+      picture: '',
+      price: 3.50,
+      description: 'Our Chai passes the test.',
+      category_id: categories.tea.id
+    },
+    jasmine: {
+      name: 'Jasmine Tea',
+      picture: '',
+      price: 3.50,
+      description: 'Our Jasmine tea has a light, clean framework. Er, flavor.',
+      category_id: categories.tea.id
+    },
+    mimosa: {
+      name: 'Mimosa',
+      picture: '',
+      price: 8.00,
+      description: 'Relax! Our signature Mimosa.io is a build tool that promises to transform your development workflow... by helping you go with the flow.',
+      category_id: categories.juice.id
+    },
+    ruby: {
+      name: 'Ruby Red Grapefruit Juice',
+      picture: '',
+      price: 4.00,
+      description: 'This glass of juice is a total gem. Ruby red grapefruit juice, made from only the finest programming language (aside from JavaScript, of course).',
+      category_id: categories.juice.id
+    },
+    rails: {
+      name: 'on Rails',
+      picture: '',
+      price: 6.50,
+      description: 'For an extra 2.50, order our Ruby red grapefruit juice "on rails"! 21+',
+      category_id: categories.juice.id
+    },
+    waffle: {
+      name: 'Belgian Waffle',
+      picture: '',
+      price: 7.00,
+      description: 'If your task is eating brunch, we can help you manage it. "Ready" to eat? Order a waffle! Deal with your issues! Done!',
+      category_id: categories.food.id
+    },
+    stack: {
+      name: 'Stack (of Pancakes)',
+      picture: '',
+      price: 5.00,
+      description: 'Last in, first out. Watch out for overflow.',
+      category_id: categories.food.id
+    },
+    fullstack: {
+      name: 'Fullstack (of Pancakes)',
+      picture: '',
+      price: 9.00,
+      description: 'Why pick one pancake when you could tackle the full stack?',
+      category_id: categories.food.id
+    },
+    cookie: {
+      name: 'Cookie',
+      picture: '',
+      price: 2.00,
+      description: 'This site uses cookies. By continuing to browse the menu, you are agreeing to our use of cookies. Options include fortune cookies or chocolate chip.',
+      category_id: categories.food.id
+    }
+  })
+)
 
-// we need to seed our associations, too?
-// use a function?  the way bones did with favorites
-// something like... ProductCategory (?)
+const orders = seed(Order,
+  ({users}) => ({
+    order1: {
+      user_id: users.melanie.id,
+      status: 'completed'
+    },
+    order2: {
+      user_id: users.melanie.id,
+      status: 'created'
+    }
+  })
+)
+
+const orderItems = seed(OrderItem,
+  ({orders, products}) => ({
+    vanilla1: {
+      order_id: orders.order1.id,
+      product_id: products.vanillajs.id,
+      price: products.vanillajs.price,
+      quantity: 1
+    },
+    coffee2: {
+      order_id: orders.order2.id,
+      product_id: products.coffee.id,
+      price: products.coffee.price,
+      quantity: 1
+    },
+    cookies2: {
+      order_id: orders.order2.id,
+      product_id: products.cookie.id,
+      price: products.cookie.price,
+      quantity: 4
+    }
+  })
+)
+
+const reviews = seed(Review,
+  // again, use a function here instead of an object
+  ({users, products}) => ({
+    myVanillaReview: {
+      author_id: users.melanie.id,
+      product_id: products.vanillajs.id,
+      stars: 5,
+      title: 'Love it',
+      text: 'JavaScript is delicious, with or without mixins.'
+    },
+    graceStackReview: {
+      author_id: users.grace.id,
+      product_id: products.stack.id,
+      stars: 3,
+      title: 'Not enough pancakes',
+      text: 'It is often easier to ask for forgiveness than to ask for more pancakes.'
+    },
+    graceFullstackReview: {
+      author_id: users.grace.id,
+      product_id: products.fullstack.id,
+      stars: 4,
+      title: 'Boo',
+      text: 'I am a ghost. Fullstack is cool.'
+    },
+  })
+)
 
 if (module === require.main) {
   db.didSync
