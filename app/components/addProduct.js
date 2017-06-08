@@ -28,22 +28,3 @@ import {connect} from 'react-redux'
 export default connect(
   ({ categories }) => ({ categories: categories.list }),
   {addProduct})(Addproduct)
-
-export const addProductBack = (name, image, price, description, categoryId) => {
-  return(dispatch,getState) =>{
-
-    return axios.post('/api/products', {name: name, picture: image, price: price, description: description, category_id: categoryId})
-      .then(product => {
-
-        dispatch(addProductFront(product.data));
-        hashHistory.push(`students/${student.id}`);
-      }).catch(()=>{
-
-      });
-
-  }
-
-
-
-
-}
