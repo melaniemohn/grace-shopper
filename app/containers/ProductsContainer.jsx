@@ -7,6 +7,3 @@ import {connect, Provider} from 'react-redux'
 
 import store from '../store'
 import Products from '../components/Products'
-
-
-
