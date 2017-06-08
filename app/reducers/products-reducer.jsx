@@ -10,7 +10,7 @@ const reducer = (state = initialProductsState, action) => {
   switch (action.type) {
   case GETPRODUCTS:
     return action.products
-  case GETONEPRODUCT: 
+  case GETONEPRODUCT:
     return action.product
   default:
     return state
