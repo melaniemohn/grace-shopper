@@ -194,7 +194,6 @@ const orders = seed(Order,
 )
 
 const orderItems = seed(OrderItem,
-  // uh oh
   ({orders, products}) => ({
     vanilla1: {
       order_id: orders.order1.id,
