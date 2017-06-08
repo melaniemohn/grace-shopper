@@ -170,8 +170,8 @@ const products = seed(Product,
       description: 'Why pick one pancake when you could tackle the full stack?',
       category_id: categories.food.id
     },
-    cookies: {
-      name: 'Cookies',
+    cookie: {
+      name: 'Cookie',
       picture: '',
       price: 2.00,
       description: 'This site uses cookies. By continuing to browse the menu, you are agreeing to our use of cookies. Options include fortune cookies or chocolate chip.',
@@ -180,13 +180,42 @@ const products = seed(Product,
   })
 )
 
-const orders = seed(Order, {
-  // orders here
-})
+const orders = seed(Order,
+  ({users}) => ({
+    order1: {
+      user_id: users.melanie.id,
+      status: 'completed'
+    },
+    order2: {
+      user_id: users.melanie.id,
+      status: 'created'
+    }
+  })
+)
 
-const orderItems = seed(OrderItem, {
+const orderItems = seed(OrderItem,
   // uh oh
-})
+  ({orders, products}) => ({
+    vanilla1: {
+      order_id: orders.order1.id,
+      product_id: products.vanilla.id,
+      price: products.vanilla.price,
+      quantity: 1
+    },
+    coffee2: {
+      order_id: orders.order2.id,
+      product_id: products.coffee.id,
+      price: products.coffee.price,
+      quantity: 1
+    },
+    cookies2: {
+      order_id: orders.order2.id,
+      product_id: products.cookie.id,
+      price: products.cookie.price,
+      quantity: 4
+    }
+  })
+)
 
 const reviews = seed(Review,
   // again, use a function here instead of an object
