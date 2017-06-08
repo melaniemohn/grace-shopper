@@ -1,16 +1,16 @@
 import axios from 'axios'
 
-/* =============== actions ==================== */
+/* ------------------ actions ------------------------ */
 
 const GET_CATEGORIES = 'GET_CATEGORIES'
 const SELECT_CATEGORY = 'SELECT_CATEGORY'
 
-/* =============== action creators ============ */
+/* ------------------ action creators ---------------- */
 
 export const get = (categories) => ({ type: GET_CATEGORIES, categories })
 export const select = (category) => ({ type: SELECT_CATEGORY, category })
 
-/* =============== reducer =================== */
+/* ------------------ reducer ------------------------ */
 
 const initialCategoryState = {
   list: [],
@@ -29,7 +29,7 @@ export default function reducer(state = initialCategoryState, action) {
   }
 }
 
-/* =============== dispatchers ================ */
+/* ------------------ dispatchers ------------------- */
 
 export const fetchCategories = () => dispatch => {
   axios.get('/api/categories')
