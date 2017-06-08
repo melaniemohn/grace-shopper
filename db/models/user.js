@@ -39,9 +39,11 @@
     }
   })
 
-  module.exports.associations = (User, {OAuth, Review}) => {
-    User.hasOne(OAuth)
-    User.hasMany(Review, { foreignKey: 'author_id' })
+  module.exports.associations = (User, {OAuth, Review, Order}) => {
+    User.hasOne(OAuth, {onDelete: 'CASCADE'})
+    User.hasMany(Review, { foreignKey: 'author_id' }, {onDelete: 'CASCADE'})
+    User.hasMany(Order, {onDelete: 'CASCADE'})
+    // need user.hasmany(orders), so we can use include from user -- KHCL
   }
   function setEmailAndPassword(user) {
     user.email = user.email && user.email.toLowerCase()

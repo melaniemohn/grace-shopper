@@ -2,7 +2,7 @@
 
 const {STRING, INTEGER, TEXT} = require('sequelize')
 
-module.exports = db => db.define('reviews', {
+module.exports = db => db.define('reviews', { // I usually expect singular table names -- KHCL
   stars: {
     type: INTEGER,
     validate: {

@@ -9,6 +9,8 @@ import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
+import CategoryContainer from './containers/CategoryContainer'
+import ProductsContainer from './containers/ProductsContainer'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -28,6 +30,8 @@ render(
       <Route path="/" component={ExampleApp}>
         <IndexRedirect to="/jokes" />
         <Route path="/jokes" component={Jokes} />
+        <Route path="/categories" component={CategoryContainer}/>
+        <Route path="/products" component={ProductsContainer}/>
       </Route>
       <Route path='*' component={NotFound} />
     </Router>

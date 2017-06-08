@@ -1,5 +1,7 @@
 'use strict'
 
+// delete for real -- KHCL
+
 const db = require('APP/db')
     , {User, Thing, Favorite, Promise} = db
     , {mapValues} = require('lodash')

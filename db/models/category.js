@@ -7,6 +7,6 @@ module.exports = db => db.define('categories', {
 })
 
 module.exports.associations = (Category, {Product}) => {
-  // Category.belongsToMany(Product, {through: 'ProductCategory'})
+  // Category.belongsToMany(Product, {through: 'ProductCategory'}) // delete me if you don't want this association -- KHCL
   Category.hasMany(Product)
 }
