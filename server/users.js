@@ -6,7 +6,7 @@ const Orders = db.model('orders')
 const Oauth = db.model('oauths')
 const Review = db.model('reviews')
 
-const { mustBeLoggedIn, forbidden, selfOnly } = require('./auth.filters')
+const { mustBeLoggedIn, forbidden, selfOnly, isAdmin, selfOrAdmin } = require('./auth.filters')
 
 // The forbidden middleware will fail *all* requests to list users.
 // Remove it if you want to allow anyone to list all users on the site.
@@ -24,26 +24,17 @@ module.exports = require('express').Router()
       User.findAll()
         .then(users => res.json(users))
         .catch(next))
-  .post('/', // expect some validation on who can set admin if used for signup conditional about should we login -- KHCL
+  .post('/', isAdmin, // expect some validation on who can set admin if used for signup conditional about should we login -- KHCL
     (req, res, next) =>
       User.create(req.body)
       .then(user => res.status(201).json(user))
       .catch(next))
   .get('/:id',
-    mustBeLoggedIn, // selfOrAdmin -- KHCL
-    (req, res, next) =>
-      User.findById(req.params.id)
-      .then(user => res.json(user))
-      .catch(next))
-  .get('/:id/orders', mustBeLoggedIn, // I would expect this to be a req.query in the above route
-    // `/api/users/1?orders=true` -- use include syntax -- KHCL
+    selfOrAdmin, // selfOrAdmin -- KHCL
     (req, res, next) => {
-      const userId = req.params.id
-      Orders.findAll({
-        where: {
-          user_id: userId
-        }})
-      .then((orders) => { res.status(201).json(orders) }) // seStatus ==> status -- KHCL
+      const options = req.query.orders ? {include: [Orders]} : {}
+      User.findById(req.params.id, options)
+      .then(user => res.json(user))
       .catch(next)
     })
   .get('/:id/orders/:orderId', mustBeLoggedIn, // this could be handled in orders route with conditional before sending response -- KHCL
@@ -65,7 +56,7 @@ module.exports = require('express').Router()
         {data},
         {where: {id: userId}}
       ).spread((affectedUsers) /* you don't use this varialbe so why define it? -- KHCL */ => User.findById(userId)).then((user) => { // chain .then in the same way visually you do in the rest of the file -- KHCL
-        res.status(200).json(user) // 201 created doesn't make sense here -- KHCL
+        res.json(user) // 201 created doesn't make sense here -- KHCL
       }).catch(next)
     })
   .delete('/:id', forbidden('Only an admin can do that'), (req, res, next) => { // security -- kHCL
