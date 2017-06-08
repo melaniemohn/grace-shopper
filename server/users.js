@@ -6,7 +6,7 @@ const Orders = db.model('orders')
 const Oauth = db.model('oauths')
 const Review = db.model('reviews')
 
-const {mustBeLoggedIn, forbidden, isAdmin, selfOnly, selfOrAdmin} = require('./auth.filters')
+const { mustBeLoggedIn, forbidden, selfOnly } = require('./auth.filters')
 
 // The forbidden middleware will fail *all* requests to list users.
 // Remove it if you want to allow anyone to list all users on the site.
@@ -19,7 +19,7 @@ const {mustBeLoggedIn, forbidden, isAdmin, selfOnly, selfOrAdmin} = require('./a
 // req.user (from deserializeUser) tells us if there is a logged in user. And they will have all the properties that a user instance has -- KHCL
 
 module.exports = require('express').Router()
-  .get('/', isAdmin,
+  .get('/', forbidden('your are not an admin'),
     (req, res, next) =>
       User.findAll()
         .then(users => res.json(users))
@@ -42,10 +42,9 @@ module.exports = require('express').Router()
       Orders.findAll({
         where: {
           user_id: userId
-        }
-      })
-      .then((orders) => { res.tatus(201).json(orders) }) // seStatus ==> status -- KHCL
-      .cathc(next)
+        }})
+      .then((orders) => { res.status(201).json(orders) }) // seStatus ==> status -- KHCL
+      .catch(next)
     })
   .get('/:id/orders/:orderId', mustBeLoggedIn, // this could be handled in orders route with conditional before sending response -- KHCL
     (req, res, next) => {
@@ -69,7 +68,7 @@ module.exports = require('express').Router()
         res.status(200).json(user) // 201 created doesn't make sense here -- KHCL
       }).catch(next)
     })
-  .delete('/:id', (req, res, next) => { // security -- kHCL
+  .delete('/:id', forbidden('Only an admin can do that'), (req, res, next) => { // security -- kHCL
     const userId = req.params.id
     User.destroy({ // look into cascade option to replace all other destroys (those should be happenign in parallel anyway) -- KHCL
       where: {
