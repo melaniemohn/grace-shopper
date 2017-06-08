@@ -198,8 +198,8 @@ const orderItems = seed(OrderItem,
   ({orders, products}) => ({
     vanilla1: {
       order_id: orders.order1.id,
-      product_id: products.vanilla.id,
-      price: products.vanilla.price,
+      product_id: products.vanillajs.id,
+      price: products.vanillajs.price,
       quantity: 1
     },
     coffee2: {

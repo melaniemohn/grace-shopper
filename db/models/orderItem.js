@@ -3,7 +3,7 @@
 const {INTEGER, DECIMAL} = require('sequelize')
 
 // define orders model
-module.exports = db => db.define('orderItem', {
+module.exports = db => db.define('orderItems', {
   quantity: {
     type: INTEGER,
     deafaultValue: 0
