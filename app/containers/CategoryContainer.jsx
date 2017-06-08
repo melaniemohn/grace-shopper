@@ -1,6 +1,6 @@
 // MPM FIX - eventually move this to new containers directory in app > containers
 // again, changing directory structure means this route needs to change after pulling from master
-import Category from './Category'
+import Category from '../Category'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => ({
