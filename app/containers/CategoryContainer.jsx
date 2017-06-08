@@ -4,8 +4,8 @@ import Category from '../Category'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => ({
-  products: state.products,
-  selectedCategory: state.category.selected
+  products: state.products.list,
+  selected: state.category.selected
 })
 
 // because I'm still fuzzy on it, could this look like...
