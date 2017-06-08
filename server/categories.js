@@ -15,7 +15,7 @@ module.exports = require('express').Router()
       }
       req.category = category
       next()
-      return null // for bluebird?
+      return null // for bluebird? // don't need this I don't think -- KHCL
     })
     .catch(next)
   })
@@ -28,7 +28,7 @@ module.exports = require('express').Router()
     res.json(req.category)
   })
   // note that the following routes should only be accessible to admins
-  .post('/', (req, res, next) => {
+  .post('/', (req, res, next) => { // security -- KHCL
     Category.create(req.body)
     .then(category => {
       res.status(201).json(category)
@@ -45,7 +45,7 @@ module.exports = require('express').Router()
   .delete('/:id', (req, res, next) => {
     req.category.destroy()
     .then(() => {
-      res.status(204).end()
+      res.status(204).end() // sendStatus -- KHCL
     })
     .catch(next)
   })

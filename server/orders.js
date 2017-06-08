@@ -5,21 +5,21 @@ const Order = db.model('orders')
 const OrderItem = db.model('orderItem')
 
 module.exports = require('express').Router()
-  .get('/',
+  .get('/', // adminOnly -- KHCL
     (req, res, next) =>
       Order.findAll()
         .then(allOrders => res.json(allOrders))
         .catch(next))
-  .get('/:orderId',
+  .get('/:orderId', // route.param here -- KHCL
     (req, res, next) =>
-      Order.findOne({
+      Order.findOne({ // findById -- KHCL
         where: {id: req.params.orderId},
         include: [
-          {model: OrderItem, where: {order_id: req.params.orderId}}
+          {model: OrderItem, where: {order_id: req.params.orderId}} // shouldn't need this where clause -- KHCL
         ]
       })
         .then(order => {
-          console.log(order)
+          console.log(order) // no logs -- KHCL
           res.json(order)
         })
         .catch(next))

@@ -16,23 +16,25 @@ module.exports = require('express').Router()
     // If you want to only let admins list all the users, then you'll
     // have to add a role column to the users table to support
     // the concept of admin users.
-    forbidden('listing users is not allowed'),
+    forbidden('listing users is not allowed'), // consider me because you can't get all users right now. Remove this and add validation that assertAdmin -- KHCL
+    // req.user (from deserializeUser) tells us if there is a logged in user. And they will have all the properties that a user instance has -- KHCL
     (req, res, next) =>
       User.findAll()
         .then(users => res.json(users))
         .catch(next))
-  .post('/',
+  .post('/', // expect some validation on who can set admin if used for signup conditional about should we login -- KHCL
     (req, res, next) =>
       User.create(req.body)
       .then(user => res.status(201).json(user))
       .catch(next))
   .get('/:id',
-    mustBeLoggedIn,
+    mustBeLoggedIn, //selfOrAdmin -- KHCL
     (req, res, next) =>
       User.findById(req.params.id)
       .then(user => res.json(user))
       .catch(next))
-  .get('/:id/orders', mustBeLoggedIn,
+  .get('/:id/orders', mustBeLoggedIn, // I would expect this to be a req.query in the above route
+    // `/api/users/1?orders=true` -- use include syntax -- KHCL
     (req, res, next) => {
       const userId = req.params.id
       Orders.findAll({
@@ -40,10 +42,10 @@ module.exports = require('express').Router()
           user_id: userId
         }
       })
-      .then((orders) => { res.seStatus(201).json(orders) })
+      .then((orders) => { res.seStatus(201).json(orders) }) // seStatus ==> status -- KHCL
       .cathc(next)
     })
-  .get('/:id/orders/:orderId', mustBeLoggedIn,
+  .get('/:id/orders/:orderId', mustBeLoggedIn, // this could be handled in orders route with conditional before sending response -- KHCL
     (req, res, next) => {
       const userId = req.params.id
       const orderId = req.params.orderId
@@ -51,30 +53,30 @@ module.exports = require('express').Router()
         where: {
           id: orderId,
           user_id: userId
-        }
+        } // may just return the first order anyway -- KHCL
       }).then((order) => res.json(order))
       .catch(next)
     })
-    .put('/:id', (req, res, next) => {
+    .put('/:id', (req, res, next) => { // security -- KHCL
       const userId = req.params.id
-      const data = req.body
+      const data = req.body // can they change their own isAdmin? -- KHCL
       User.update(
         {data},
         {where: {id: userId}}
-      ).spread((affectedUsers, update) => User.findById(userId)).then((user) => {
-        res.setStatus(201).json(user)
+      ).spread((affectedUsers, update) /* you don't use this varialbe so why define it? -- KHCL */ => User.findById(userId)).then((user) => { // chain .then in the same way visually you do in the rest of the file -- KHCL
+        res.setStatus(201).json(user) // 201 created doesn't make sense here -- KHCL
       }).catch(next)
     })
-  .delete('/:id', (req, res, next) => {
+  .delete('/:id', (req, res, next) => { // security -- kHCL
     const userId = req.params.id
-    User.destroy({
+    User.destroy({ // look into cascade option to replace all other destroys (those should be happenign in parallel anyway) -- KHCL
       where: {
         id: userId
       }
     })
       .then((affectedRows) => {
         if (affectedRows === 0) {
-          next(404)
+          next(404) // not sending error object which potentially might log useless errors without stack trace. Also not going catch, going to next .then -- KHCL
         } else {
           return Oauth.destroy({
             where: {
@@ -100,6 +102,6 @@ module.exports = require('express').Router()
           return User.findAll()
         }
       })
-      .then(users => res.json(users))
-      .catch(() => next(500))
+      .then(users => res.json(users)) // no users to return, sendStatus 204 -- KHCL
+      .catch(() => next(500)) // catch(next) -- KHCL
   })
