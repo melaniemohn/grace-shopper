@@ -17,7 +17,7 @@ const initialCategoryState = {
   selected: {}
 }
 
-export default function reducer(state = initialCategoryState, action) {
+const reducer = (state = initialCategoryState, action) => {
   // const newState = Object.assign({}, state)
   switch (action.type) {
   case GET_CATEGORIES:
@@ -44,3 +44,5 @@ export const fetchCategory = (id) => dispatch => {
   .then(res => dispatch(select(res.data)))
   .catch(err => console.error('Error fetching category :(', err))
 }
+
+export default reducer

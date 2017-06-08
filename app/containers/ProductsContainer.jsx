@@ -13,3 +13,5 @@ const mapStateToProps = (state) => {
 const ProductsContainer = connect(
   mapStateToProps
 )(Products)
+
+export default ProductsContainer

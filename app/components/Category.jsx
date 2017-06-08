@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-import CategoryContainer from './CategoryContainer'
+import CategoryContainer from '../containers/CategoryContainer'
 // MPM FIX - eventually this will be in its own containers directory, so change path to ../
 
 // this component will provide a list of products in the selected category
