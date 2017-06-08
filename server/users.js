@@ -6,18 +6,20 @@ const Orders = db.model('orders')
 const Oauth = db.model('oauths')
 const Review = db.model('reviews')
 
-const {mustBeLoggedIn, forbidden} = require('./auth.filters')
+const {mustBeLoggedIn, forbidden, isAdmin, selfOnly, selfOrAdmin} = require('./auth.filters')
+
+// The forbidden middleware will fail *all* requests to list users.
+// Remove it if you want to allow anyone to list all users on the site.
+//
+// If you want to only let admins list all the users, then you'll
+// have to add a role column to the users table to support
+// the concept of admin users.
+// forbidden('listing users is not allowed')
+// consider me because you can't get all users right now. Remove this and add validation that assertAdmin -- KHCL
+// req.user (from deserializeUser) tells us if there is a logged in user. And they will have all the properties that a user instance has -- KHCL
 
 module.exports = require('express').Router()
-  .get('/',
-    // The forbidden middleware will fail *all* requests to list users.
-    // Remove it if you want to allow anyone to list all users on the site.
-    //
-    // If you want to only let admins list all the users, then you'll
-    // have to add a role column to the users table to support
-    // the concept of admin users.
-    forbidden('listing users is not allowed'), // consider me because you can't get all users right now. Remove this and add validation that assertAdmin -- KHCL
-    // req.user (from deserializeUser) tells us if there is a logged in user. And they will have all the properties that a user instance has -- KHCL
+  .get('/', isAdmin
     (req, res, next) =>
       User.findAll()
         .then(users => res.json(users))
@@ -28,7 +30,7 @@ module.exports = require('express').Router()
       .then(user => res.status(201).json(user))
       .catch(next))
   .get('/:id',
-    mustBeLoggedIn, //selfOrAdmin -- KHCL
+    selfOrAdmin, //selfOrAdmin -- KHCL
     (req, res, next) =>
       User.findById(req.params.id)
       .then(user => res.json(user))
@@ -76,32 +78,11 @@ module.exports = require('express').Router()
     })
       .then((affectedRows) => {
         if (affectedRows === 0) {
-          next(404) // not sending error object which potentially might log useless errors without stack trace. Also not going catch, going to next .then -- KHCL
-        } else {
-          return Oauth.destroy({
-            where: {
-              user_id: userId
-            }
-          })
-        }
-      })
-      .then((affectedRows) => {
-        if (affectedRows === 0) {
-          next(404)
-        } else {
-          return Orders.destroy({
-            where: {
-              user_id: userId
-            }
-          })
-        }
-      }).then((affectedRows) => {
-        if (affectedRows === 0) {
-          next(404)
+          next(404) // ???not sending error object which potentially might log useless errors without stack trace. Also not going catch, going to next .then -- KHCL
         } else {
           return User.findAll()
         }
       })
-      .then(users => res.json(users)) // no users to return, sendStatus 204 -- KHCL
-      .catch(() => next(500)) // catch(next) -- KHCL
+      .then(users => res.json(users))
+      .catch(next) // catch(next) -- KHCL
   })
