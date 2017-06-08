@@ -19,7 +19,7 @@ const {mustBeLoggedIn, forbidden, isAdmin, selfOnly, selfOrAdmin} = require('./a
 // req.user (from deserializeUser) tells us if there is a logged in user. And they will have all the properties that a user instance has -- KHCL
 
 module.exports = require('express').Router()
-  .get('/', isAdmin
+  .get('/', isAdmin,
     (req, res, next) =>
       User.findAll()
         .then(users => res.json(users))
@@ -30,7 +30,7 @@ module.exports = require('express').Router()
       .then(user => res.status(201).json(user))
       .catch(next))
   .get('/:id',
-    selfOrAdmin, //selfOrAdmin -- KHCL
+    mustBeLoggedIn, // selfOrAdmin -- KHCL
     (req, res, next) =>
       User.findById(req.params.id)
       .then(user => res.json(user))
@@ -44,7 +44,7 @@ module.exports = require('express').Router()
           user_id: userId
         }
       })
-      .then((orders) => { res.seStatus(201).json(orders) }) // seStatus ==> status -- KHCL
+      .then((orders) => { res.tatus(201).json(orders) }) // seStatus ==> status -- KHCL
       .cathc(next)
     })
   .get('/:id/orders/:orderId', mustBeLoggedIn, // this could be handled in orders route with conditional before sending response -- KHCL
@@ -59,14 +59,14 @@ module.exports = require('express').Router()
       }).then((order) => res.json(order))
       .catch(next)
     })
-    .put('/:id', (req, res, next) => { // security -- KHCL
+    .put('/:id', selfOnly, (req, res, next) => { // security -- KHCL
       const userId = req.params.id
       const data = req.body // can they change their own isAdmin? -- KHCL
       User.update(
         {data},
         {where: {id: userId}}
-      ).spread((affectedUsers, update) /* you don't use this varialbe so why define it? -- KHCL */ => User.findById(userId)).then((user) => { // chain .then in the same way visually you do in the rest of the file -- KHCL
-        res.setStatus(201).json(user) // 201 created doesn't make sense here -- KHCL
+      ).spread((affectedUsers) /* you don't use this varialbe so why define it? -- KHCL */ => User.findById(userId)).then((user) => { // chain .then in the same way visually you do in the rest of the file -- KHCL
+        res.status(200).json(user) // 201 created doesn't make sense here -- KHCL
       }).catch(next)
     })
   .delete('/:id', (req, res, next) => { // security -- kHCL
@@ -78,7 +78,8 @@ module.exports = require('express').Router()
     })
       .then((affectedRows) => {
         if (affectedRows === 0) {
-          next(404) // ???not sending error object which potentially might log useless errors without stack trace. Also not going catch, going to next .then -- KHCL
+          res.status(404)
+          // ???not sending error object which potentially might log useless errors without stack trace. Also not going catch, going to next .then -- KHCL
         } else {
           return User.findAll()
         }

@@ -20,11 +20,11 @@ module.exports = require('express').Router()
   })
   .get('/:productId',
     (req, res, next) => {
-      let id = req.params.productId
+      const id = req.params.productId
       Product.findById(id)
       .then(product => {
         if (!product) {
-          let err = new Error('Product not found')
+          const err = new Error('Product not found')
           err.status = 404
           throw err
         }
@@ -42,17 +42,16 @@ module.exports = require('express').Router()
     // deletes a product
   .delete('/:productId',
     (req, res, next) => {
-      let id = req.params.productId
+      const id = req.params.productId
       Product.findById(id)
-      .then(product => { 
-        return product.destroy() // req.product.destroy() -- KHCL
-      }) // never sending response.... 204 -- KHCL
+      .then(product => product.destroy() // req.product.destroy() -- KHCL
+      ) // never sending response.... 204 -- KHCL
       .catch(next)
     })
     // updates a product
   .put('/:productId',
     (req, res, next) => {
-      let id = req.params.productId
+      const id = req.params.productId
       Product.findById(id)
       .then(product => {
         product.update(req.body) // async so return and send response after -- KHCL

@@ -29,5 +29,4 @@ module.exports.associations = (Product, {Review, Category, OrderItem}) => {
   Product.belongsTo(Category)
   Product.hasMany(OrderItem) // I would expect Product.belongsToMany(Order, {through: OrderItem}); need to have the revers in Order. So with this we will have in Sequelize - be able to use include syntax from product to orders (and vice versa if you make the other relation); also get product.addOrders(), which will be nicer when you have Order.addProducts([])
   // NO change to tables in postgres. Just changing Sequelize methods and keywords we can use
-
 }

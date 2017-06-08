@@ -26,4 +26,4 @@ const isAdmin = (req, res, next) => {
 const selfOrAdmin = (req, res, next) => (isAdmin(req, res, next) || selfOnly(req, res, next))
 // Feel free to add more filters here (suggested: something that keeps out non-admins)
 
-module.exports = {mustBeLoggedIn, selfOnly, forbidden, isAdmin, selfOrAdmin }
+module.exports = { mustBeLoggedIn, selfOnly, forbidden, isAdmin, selfOrAdmin }
