@@ -3,6 +3,8 @@
 const db = require('APP/db')
 const User = db.model('users')
 const Orders = db.model('orders')
+const Oauth = db.model('oauths')
+const Review = db.model('reviews')
 
 const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 
@@ -53,3 +55,51 @@ module.exports = require('express').Router()
       }).then((order) => res.json(order))
       .catch(next)
     })
+    .put('/:id', (req, res, next) => {
+      const userId = req.params.id
+      const data = req.body
+      User.update(
+        {data},
+        {where: {id: userId}}
+      ).spread((affectedUsers, update) => User.findById(userId)).then((user) => {
+        res.setStatus(201).json(user)
+      }).catch(next)
+    })
+  .delete('/:id', (req, res, next) => {
+    const userId = req.params.id
+    User.destroy({
+      where: {
+        id: userId
+      }
+    })
+      .then((affectedRows) => {
+        if (affectedRows === 0) {
+          next(404)
+        } else {
+          return Oauth.destroy({
+            where: {
+              user_id: userId
+            }
+          })
+        }
+      })
+      .then((affectedRows) => {
+        if (affectedRows === 0) {
+          next(404)
+        } else {
+          return Orders.destroy({
+            where: {
+              user_id: userId
+            }
+          })
+        }
+      }).then((affectedRows) => {
+        if (affectedRows === 0) {
+          next(404)
+        } else {
+          return User.findAll()
+        }
+      })
+      .then(users => res.json(users))
+      .catch(() => next(500))
+  })
