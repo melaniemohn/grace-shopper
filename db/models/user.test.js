@@ -1,5 +1,5 @@
 'use strict'
-
+// I want to be in model-tests folder -- KHCL
 const db = require('APP/db')
     , {User} = db
     , {expect} = require('chai')
