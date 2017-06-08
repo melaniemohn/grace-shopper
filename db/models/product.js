@@ -14,9 +14,11 @@ module.exports = db => db.define('products', {
   price: {
     type: DECIMAL(10, 2),
     allowNull: false,
-    defaultValue: 0.0
+    defaultValue: 0.00
   },
   description: TEXT
+  // add inventory here? and move ratings off the product model?
+  // inventory: INTEGER
   // rating: DECIMAL(1, 1)  // add this later.  and write a getter method for setting average????
   // reviews: ARRAY(INTEGER),  // this is an array of review IDs
   // stars: ARRAY(INTEGER),
