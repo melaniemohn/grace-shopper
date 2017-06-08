@@ -4,7 +4,7 @@ const {INTEGER, ARRAY, ENUM} = require('sequelize')
 
 // define orders model
 module.exports = db => {
-  return db.define('orders', {
+  db.define('orders', {
     status: ENUM('created', 'completed')
   })
 }
