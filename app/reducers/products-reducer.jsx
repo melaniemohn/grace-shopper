@@ -12,6 +12,11 @@ const reducer = (state = initialProductsState, action) => {
     return Object.assign({}, state, {list: action.products})
   case GETONEPRODUCT:
     return Object.assign({}, state, {list: action.product})
+  case ADD_PRODUCT_FRONT:
+    const newState = Object.assign({}, state)
+    newState.list.push(action.product)
+    return newState
+
   default:
     return state
   }

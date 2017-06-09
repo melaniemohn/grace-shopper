@@ -23,7 +23,7 @@ const forbidden = message => (req, res, next) => {
 
 const isAdmin = (req, res, next) => {
   if (!req.user || !req.user.isAdmin) {
-    return res.status(403).send('Only an admin can do that')
+    return res.status(401).send('Only an admin can do that')
   }
   next()
 }
