@@ -15,7 +15,7 @@ module.exports = require('express').Router()
       }
       req.category = category
       next()
-      return null // for bluebird? // don't need this I don't think -- KHCL
+      return null
     })
     .catch(next)
   })
