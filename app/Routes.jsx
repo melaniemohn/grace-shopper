@@ -9,7 +9,6 @@ import App from './components/App'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
-import Category from './components/Category'
 // import Categories from './components/Categories'
 import CategoryContainer from './containers/CategoryContainer'
 import ProductsContainer from './containers/ProductsContainer'
@@ -25,7 +24,7 @@ import { fetchCategories, fetchCategory } from './reducers/category-reducer'
 const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
   <Router history={browserHistory}>
     <Route path="/" component={App} onEnter={fetchInitialData}>
-      <Route path="/categories/:id" component={Category} onEnter={onCategoryEnter} />
+      <Route path="/categories/:id" component={CategoryContainer} onEnter={onCategoryEnter} />
       <Route path="/products" component={ProductsContainer} />
       <Route path="/products/:id" component={ProductsContainer} onEnter={onProductEnter} />
     </Route>
