@@ -2,10 +2,9 @@ import Category from '../components/Category'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     products: state.products.list,
-    selectedCategory: state.category.selected
+    selectedCategory: state.categories.selected
   }
 }
 
