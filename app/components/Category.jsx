@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-import CategoryContainer from '../containers/CategoryContainer'
-
 // this component will provide a list of products in the selected category
 // maybe make a visual indicator for which category we're in, instead of / in addition to the text?
 // so like, check a box for food or coffee or whatever
