@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { browserHistory } from 'react-router'
 
 const initialProductsState = {
   list: [],
@@ -61,7 +62,10 @@ export const addProductBack = (name, image, price, description, categoryId) =>
     description: description,
     category_id: categoryId
   })
-      .then(product => dispatch(addProductFront(product.data)))
-      .catch(err => console.error('Fetching product unsuccessful', err))
+      .then(product => {
+        dispatch(addProductFront(product.data))
+        browserHistory.push('/products')
+      })
+      .catch(err => console.error('Adding product unsuccessful', err))
 
 export default reducer

@@ -1,12 +1,12 @@
 import React from 'react'
 
-export const Addproduct = ({addProduct, categories}) => {
+export const Addproduct = ({addProductBack, categories}) => {
   return (
     <div>
 
       <form onSubmit={evt => {
         evt.preventDefault()
-        addProduct(evt.target.product_name.value, evt.target.product_image.value, evt.target.product_price.value, evt.target.product_description.value, evt.target.categoryId.value[0])
+        addProductBack(evt.target.product_name.value, evt.target.product_image.value, evt.target.product_price.value, evt.target.product_description.value, evt.target.categoryId.value[0])
       }}>
         <label>Product Name</label>
         <input type="text" name="product_name"/>
@@ -16,6 +16,7 @@ export const Addproduct = ({addProduct, categories}) => {
         <input type="number" name="product_price"/>
         <label>Product Description</label>
         <textarea name="product_description"></textarea>
+        <label>Select Category</label>
         <select name="category" id="categoryId">
           {
             categories && categories.map((category) => (
@@ -23,17 +24,18 @@ export const Addproduct = ({addProduct, categories}) => {
             ))
           }
         </select>
+        <button type="submit">Submit New Product</button>
       </form>
     </div>
 
   )
 }
 
-import {addProduct} from 'App/app/reducers/products-reducer'
+import {addProductBack} from 'App/app/reducers/products-reducer'
 import {connect} from 'react-redux'
 
 const AddProduct = connect(
   (state) => ({ categories: state.categories.list }),
-  {addProduct})(Addproduct)
+  {addProductBack})(Addproduct)
 
 export default AddProduct
