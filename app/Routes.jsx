@@ -12,6 +12,7 @@ import NotFound from './components/NotFound'
 // import Categories from './components/Categories'
 import CategoryContainer from './containers/CategoryContainer'
 import ProductsContainer from './containers/ProductsContainer'
+import addProduct from './components/addProduct'
 
 // ----- dispatchers -----
 import { fetchProducts, fetchOneProduct } from './reducers/products-reducer'
@@ -25,7 +26,9 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
   <Router history={browserHistory}>
     <Route path="/" component={App} onEnter={fetchInitialData}>
       <Route path="/categories/:id" component={CategoryContainer} onEnter={onCategoryEnter} />
-      <Route path="/products" component={ProductsContainer} />
+      <Route path="/products" component={ProductsContainer} >
+        <Route path="/add-product" component={addProduct}/>
+      </Route>
       <Route path="/products/:id" component={ProductsContainer} onEnter={onProductEnter} />
     </Route>
     <Route path="*" component={NotFound} />
@@ -50,3 +53,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes)
+
+/*
+
+ */
