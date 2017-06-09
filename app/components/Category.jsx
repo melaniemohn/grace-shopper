@@ -17,7 +17,7 @@ const Category = (props) => {
       { // filtering products here
         // add another list item with Link for picture, right *above* name?
         products && products.filter(product => product.category_id === props.selectedCategory.id)
-        .map(product => {
+        .map(product => (
           <ul>
             <li>
               <Link to={`/products/${product.id}`}>
@@ -26,7 +26,7 @@ const Category = (props) => {
             </li>
             <li>{product.price}</li>
           </ul>
-        })
+        ))
       }
     </div>
   )
