@@ -24,12 +24,12 @@ import { fetchCategories, fetchCategory } from './reducers/category-reducer'
 // that said, we might not need all of the fetch functions that are listed... since some of that info is on state anyway
 const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
   <Router history={browserHistory}>
-    <Route path='/' component={App} onEnter={fetchInitialData}>
-      <Route path='/categories/:id' component={Category} onEnter={onCategoryEnter} />
-      <Route path='/products' component={ProductsContainer} />
-      <Route path='/products/:id' component={ProductsContainer} onEnter={onProductEnter} />
+    <Route path="/" component={App} onEnter={fetchInitialData}>
+      <Route path="/categories/:id" component={Category} onEnter={onCategoryEnter} />
+      <Route path="/products" component={ProductsContainer} />
+      <Route path="/products/:id" component={ProductsContainer} onEnter={onProductEnter} />
     </Route>
-    <Route path='*' component={NotFound} />
+    <Route path="*" component={NotFound} />
   </Router>
 )
 
