@@ -1,10 +1,10 @@
 import React from 'react'
-
-// eventually, pull in navbar component here
+import Navbar from './Navbar'
 
 const App = ({children}) => (
 
   <div className="App">
+    <Navbar />
     <div>
       <h1> bits & bytes </h1>
     </div>
