@@ -7,16 +7,16 @@ import { Link } from 'react-router'
 
 const Category = (props) => {
   const products = props.products
-  const category = props.selectedCategory
+  // const category = props.selectedCategory
   console.log('props', props)
 
   return (
     <div>
-      <h3>{category}</h3>
-      <h4>Here's the {category} menu! Browse products below.</h4>
+      <h3>{props.selectedCategory.name}</h3>
+      <h4>Here's the {props.selectedCategory.name} menu! Browse products below.</h4>
       { // filtering products here
         // add another list item with Link for picture, right *above* name?
-        products && products.filter(product => product.category_id === category.id)
+        products && products.filter(product => product.category_id === props.selectedCategory.id)
         .map(product => {
           <ul>
             <li>

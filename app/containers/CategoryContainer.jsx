@@ -5,7 +5,7 @@ const mapStateToProps = (state) => {
   console.log(state)
   return {
     products: state.products.list,
-    selected: state.category.selected
+    selectedCategory: state.category.selected
   }
 }
 
