@@ -33,7 +33,7 @@ import {addProduct} from 'App/app/reducers/products-reducer'
 import {connect} from 'react-redux'
 
 const AddProduct = connect(
-  (state) => ({ categories: state.category.list }),
+  (state) => ({ categories: state.categories.list }),
   {addProduct})(Addproduct)
 
 export default AddProduct
