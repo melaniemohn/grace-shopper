@@ -11,12 +11,17 @@ export default function Navbar(props) {
           <li>
             <Link className="navbar-brand" to="/">bits & bytes</Link>
           </li>
-        </ul>
-        <ul className="nav navbar-nav navbar-right">
           <li>
             <Link to="/categories" activeClassName="active">Categories</Link>
           </li>
-
+          <li>
+            <Link to="/products" activeClassName="active">Products</Link>
+          </li>
+        </ul>
+        <ul className="nav navbar-nav navbar-right">
+          <li>
+            <Link to="/cart" activeClassName="active">Cart</Link>
+          </li>
         </ul>
       </div>
     </nav>
