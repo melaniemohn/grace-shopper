@@ -9,9 +9,9 @@ const initialProductsState = {
 const reducer = (state = initialProductsState, action) => {
   switch (action.type) {
   case GETPRODUCTS:
-    return action.products
+    return Object.assign({}, state, {list: action.products})
   case GETONEPRODUCT:
-    return action.product
+    return Object.assign({}, state, {list: action.product})
   default:
     return state
   }
