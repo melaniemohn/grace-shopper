@@ -11,7 +11,7 @@ const reducer = (state = initialProductsState, action) => {
   case GETPRODUCTS:
     return Object.assign({}, state, {list: action.products})
   case GETONEPRODUCT:
-    return Object.assign({}, state, {list: action.product})
+    return Object.assign({}, state, {selected: action.product})
   default:
     return state
   }
@@ -40,7 +40,7 @@ export const fetchProducts = () =>
 export const fetchOneProduct = (productId) =>
   dispatch =>
     axios.get(`/api/products/${productId}`)
-      .then(res => dispatch(getProducts(res.data)))
+      .then(res => dispatch(getOneProduct(res.data)))
       .catch(err => console.error('Fetching product unsuccessful', err))
 
 export default reducer

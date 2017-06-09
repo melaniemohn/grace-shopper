@@ -11,13 +11,6 @@ module.exports = require('express').Router()
         .then(products => res.status(200).json(products)) // 200 is default, don't need to describe it -- KHCL
         .catch(next))
     // get one product
-  // route.param
-  .param('productId', (req, res, next, id) => { // id === req.params.productId
-    // findit
-    // error handling
-    // set on request -- req.product = product
-    // next()
-  })
   .get('/:productId',
     (req, res, next) => {
       const id = req.params.productId
