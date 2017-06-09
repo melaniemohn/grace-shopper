@@ -9,7 +9,7 @@ import App from './components/App'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
-// import Categories from './components/Categories'
+import Categories from './components/Categories'
 import CategoryContainer from './containers/CategoryContainer'
 import ProductsContainer from './containers/ProductsContainer'
 
@@ -24,6 +24,7 @@ import { fetchCategories, fetchCategory } from './reducers/category-reducer'
 const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
   <Router history={browserHistory}>
     <Route path="/" component={App} onEnter={fetchInitialData}>
+      <Route path="/categories" component={Categories} />
       <Route path="/categories/:id" component={CategoryContainer} onEnter={onCategoryEnter} />
       <Route path="/products" component={ProductsContainer} />
       <Route path="/products/:id" component={ProductsContainer} onEnter={onProductEnter} />
@@ -33,11 +34,12 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
 )
 
 // ----- routes container -----
+// MPM note: in fetchInitialDate, order matters!!!
 const mapStateToProps = null
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => {
-    dispatch(fetchCategories())
     dispatch(fetchProducts())
+    dispatch(fetchCategories())
   },
   onCategoryEnter: (nextState) => {
     const categoryId = nextState.params.id
