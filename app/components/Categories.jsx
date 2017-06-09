@@ -18,15 +18,14 @@ export const Categories = (props) => {
       <h2>Browse our internet cafe by selecting a category!</h2>
       <ul>
         {
-          props.categories.map(category => {
-            return (
+          props.categories.map(category => (
               <div key={category.id}>
                 <Link to={`/categories/${category.id}`}>
                 <h3>{category.name}</h3>
                 </Link>
               </div>
             )
-          })
+          )
         }
       </ul>
     </div>
@@ -34,11 +33,7 @@ export const Categories = (props) => {
 }
 
 // ----- categories container -----
-const mapStateToProps = (state) => {
-  return {
-    categories: state.categories.list
-  }
-}
+const mapStateToProps = (state) => ({categories: state.categories.list})
 
 const mapDispatchToProps = null
 
