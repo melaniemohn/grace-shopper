@@ -24,7 +24,7 @@ module.exports = require('express').Router()
       User.findAll()
         .then(users => res.json(users))
         .catch(next))
-  .post('/', isAdmin, // expect some validation on who can set admin if used for signup conditional about should we login -- KHCL
+  .post('/', // expect some validation on who can set admin if used for signup conditional about should we login -- KHCL
     (req, res, next) =>
       User.create(req.body)
       .then(user => res.status(201).json(user))

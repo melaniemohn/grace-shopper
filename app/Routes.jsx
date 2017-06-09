@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
 
 // components
 // ADD MORE COMPONENTS as we write them
@@ -13,6 +13,7 @@ import Categories from './components/Categories'
 import CategoryContainer from './containers/CategoryContainer'
 import ProductsContainer from './containers/ProductsContainer'
 import ProductContainer from './containers/ProductContainer'
+import AddProduct from './components/addProduct'
 
 // ----- dispatchers -----
 import { fetchProducts, fetchOneProduct } from './reducers/products-reducer'
@@ -29,6 +30,7 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
       <Route path="/categories/:id" component={CategoryContainer} onEnter={onCategoryEnter} />
       <Route path="/products" component={ProductsContainer} />
       <Route path="/products/:id" component={ProductContainer} onEnter={onProductEnter} />
+      <Route path="/add-product" component={AddProduct} onEnter={onProductEnter}/>
     </Route>
     <Route path="*" component={NotFound} />
   </Router>
@@ -53,3 +55,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes)
+
+/*
+
+ */
