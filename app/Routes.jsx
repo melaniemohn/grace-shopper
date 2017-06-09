@@ -12,6 +12,7 @@ import NotFound from './components/NotFound'
 import Categories from './components/Categories'
 import CategoryContainer from './containers/CategoryContainer'
 import ProductsContainer from './containers/ProductsContainer'
+import ProductContainer from './containers/ProductContainer'
 import AddProduct from './components/addProduct'
 
 // ----- dispatchers -----
@@ -28,7 +29,7 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
       <Route path="/categories" component={Categories} />
       <Route path="/categories/:id" component={CategoryContainer} onEnter={onCategoryEnter} />
       <Route path="/products" component={ProductsContainer} />
-      <Route path="/products/:id" component={ProductsContainer} onEnter={onProductEnter} />
+      <Route path="/products/:id" component={ProductContainer} onEnter={onProductEnter} />
       <Route path="/add-product" component={AddProduct} onEnter={onProductEnter}/>
     </Route>
     <Route path="*" component={NotFound} />

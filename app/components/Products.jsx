@@ -10,9 +10,11 @@ const Products = (props) => {
         {
           products && products.map(product => (
             <div key={ product.id }>
-              <h4>{product.name}</h4>
-              <h6>{product.price}</h6>
-              <h8>Description: {product.description}</h8>
+              <Link to={`/products/${product.id}`}>
+                {product.name}
+              </Link>
+                <h6>{product.price}</h6>
+                <h8>Description: {product.description}</h8>
             </div>
           ))
         }
