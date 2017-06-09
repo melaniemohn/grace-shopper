@@ -1,11 +1,12 @@
 import React from 'react'
 
+// eventually, pull in navbar component here
+
 const App = ({children}) => (
 
   <div className="App">
     <div>
       <h1> bits & bytes </h1>
-      <h2><small>eat it</small></h2>
     </div>
     <div id="body">
       {children}

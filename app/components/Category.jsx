@@ -7,7 +7,7 @@ import { Link } from 'react-router'
 
 const Category = (props) => {
   const products = props.products
-  const category = props.selected
+  const category = props.selectedCategory
   console.log('props', props)
 
   return (

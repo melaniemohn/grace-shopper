@@ -38,6 +38,7 @@ const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => {
     dispatch(fetchCategories())
     dispatch(fetchProducts())
+    dispatch(fetchCategories())
   },
   onCategoryEnter: (nextState) => {
     const categoryId = nextState.params.id
