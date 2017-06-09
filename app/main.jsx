@@ -10,6 +10,7 @@ import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
+import Category from './components/Category'
 import CategoryContainer from './containers/CategoryContainer'
 import ProductsContainer from './containers/ProductsContainer'
 
