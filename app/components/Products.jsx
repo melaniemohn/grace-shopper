@@ -6,15 +6,18 @@ const Products = (props) => {
   return (
     <div>
       <h3>Products</h3>
-      <div className="list-group">
+      <div className="container">
         {
           products && products.map(product => (
-            <div key={ product.id }>
-              <Link to={`/products/${product.id}`}>
-                {product.name}
-              </Link>
-                <h6>{product.price}</h6>
-                <h8>Description: {product.description}</h8>
+            <div className="col-xs-4" key={ product.id }>
+              <div className="well short">
+                <Link className="img-fluid" to={`/products/${product.id}`}>
+                  <img src={product.picture}/>
+                  <h4>{product.name}</h4>
+                </Link>
+                  <h4>{product.price}</h4>
+                  <h5>{product.description}</h5>
+              </div>
             </div>
           ))
         }
