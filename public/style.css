@@ -1,0 +1,12 @@
+.center {
+  text-align: center;
+}
+
+body {
+  background-image: url('/images/background-eloquent.png');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-attachment: fixed;
+}
+
+
