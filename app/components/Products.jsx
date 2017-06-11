@@ -5,8 +5,8 @@ const Products = (props) => {
   const products = props.products
   return (
     <div>
-      <h3>Products</h3>
-      <div className="container">
+     <div className="container">
+        <h3>Products</h3>
         {
           products && products.map(product => (
             <div className="col-xs-4" key={ product.id }>
