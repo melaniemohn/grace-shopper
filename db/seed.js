@@ -191,7 +191,7 @@ const orders = seed(Order,
       status: 'completed'
     },
     order2: {
-      user_id: users.melanie.id,
+      user_id: users.grace.id,
       status: 'created'
     }
   })

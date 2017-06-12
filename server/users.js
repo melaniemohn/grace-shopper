@@ -41,6 +41,17 @@ module.exports = require('express').Router()
       })
       .catch(next)
     })
+  // MPM adding a new route below to get all orders by a user
+  .get('/:id/orders', /* mustBeLoggedIn, */
+    (req, res, next) => {
+      const userId = req.params.id
+      Orders.findAll({
+        where: {
+          user_id: userId
+        }
+      }).then(orders => res.json(orders))
+      .catch(next)
+    })
   .get('/:id/orders/:orderId', mustBeLoggedIn, // this could be handled in orders route with conditional before sending response -- KHCL */
     (req, res, next) => {
       const userId = req.params.id

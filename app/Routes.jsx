@@ -42,7 +42,7 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter
 )
 
 // ----- routes container -----
-// MPM note: in fetchInitialDate, order matters!!!
+// MPM note: in fetchInitialData, order matters!!!
 const mapStateToProps = null
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => {
