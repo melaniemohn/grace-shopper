@@ -2,17 +2,20 @@
 // we get here by clicking on an order# from the table on the single-user page, in the User component
 // we'll reuse this for our CART component, with extra functionality
 
+// again, write this as  one big conditional:
+// make sure auth.user.id is the same as orders.selected.user_id or whatever
+
 import React from 'react'
 import { connect } from 'react-redux'
+import { fetchSingleOrder } from '../reducers/orders-reducer'
 
 // ----- single-order component -----
 
 export const OrderDetail = (props) => {
-  console.log('props', props)
-
+  const order = fetchSingleOrder()
   return (
     <div className="container">
-      <h3>Details for Order #{props.selectedOrder.id}</h3>
+      <h3>Details for Order #</h3>
     </div>
   )
 }
@@ -24,6 +27,6 @@ const mapStateToProps = (state) => ({
   products: state.products.list
 })
 
-const mapDispatchToProps = null
+const mapDispatchToProps = ({ fetchSingleOrder })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderDetail)
