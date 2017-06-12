@@ -7,6 +7,7 @@ import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-ro
 import store from './store'
 import App from './components/App'
 import Login from './components/Login'
+import Users from './components/Users'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Categories from './components/Categories'
@@ -34,8 +35,9 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter
       <Route path="/categories/:id" component={CategoryContainer} onEnter={onCategoryEnter} />
       <Route path="/products" component={ProductsContainer} />
       <Route path="/products/:id" component={ProductContainer} onEnter={onProductEnter} />
-      <Route path="/add-product" component={AddProduct} onEnter={onProductEnter}/>
-      <Route path="/users/:id" component={UserContainer} onEnter={onUserEnter}/>
+      <Route path="/add-product" component={AddProduct} onEnter={onProductEnter} />
+      <Route path="/users" component={Users} onEnter={onUsersEnter} />
+      <Route path="/users/:id" component={UserContainer} onEnter={onUserEnter} />
     </Route>
     <Route path="*" component={NotFound} />
   </Router>
@@ -56,6 +58,9 @@ const mapDispatchToProps = dispatch => ({
   onProductEnter: (nextState) => {
     const productId = nextState.params.id
     dispatch(fetchOneProduct(productId))
+  },
+  onUsersEnter: (nextState) => {
+    dispatch(fetchUsers())
   },
   onUserEnter: (nextState) => {
     const userId = nextState.params.id
