@@ -62,16 +62,20 @@ const users = seed(User, {
 const categories = seed(Category, {
   // add images to categories?
   food: {
-    name: 'Food'
+    name: 'Food',
+    image: '/images/food.jpg'
   },
   coffee: {
-    name: 'Coffee'
+    name: 'Coffee',
+    image: '/images/latte.jpg'
   },
   tea: {
-    name: 'Tea'
+    name: 'Tea',
+    image: '/images/tea.jpg'
   },
   juice: {
-    name: 'Juice'
+    name: 'Juice',
+    image: '/images/juice.jpg'
   }
 })
 
@@ -81,99 +85,99 @@ const products = seed(Product,
   ({categories}) => ({
     java: {
       name: 'Cup of Java',
-      picture: '',
       price: 2.00,
+      picture: '/images/java.png',
       description: 'Keep it old school.',
       category_id: categories.coffee.id
     },
     vanillajs: {
       name: 'Vanilla JS Latte',
-      picture: '',
       price: 3.75,
+      picture: '/images/vanilla-js.png',
       description: 'Simple pleasures.',
       category_id: categories.coffee.id
     },
     coffee: {
       name: 'Cold-Brew CoffeeScript',
-      picture: '',
       price: 4.50,
+      picture: '/images/coffee.png',
       description: 'We added a spoonful of syntactic sugar to make our cold-brew the smoothest around.',
       category_id: categories.coffee.id
     },
     expresso: {
       name: 'Express-o',
-      picture: '',
       price: 2.50,
+      picture: '/images/expresso.png',
       description: 'Fast, unopinionated, minimalist caffeine framework for Node.js.',
       category_id: categories.coffee.id
     },
     mocha: {
       name: 'Mocha',
-      picture: '',
       price: 3.75,
+      picture: '/images/mocha.png',
       description: 'Our Mocha passes the test.',
       category_id: categories.coffee.id
     },
     chai: {
       name: 'Chai Tea',
-      picture: '',
       price: 3.50,
+      picture: '/images/chai.png',
       description: 'Our Chai passes the test.',
       category_id: categories.tea.id
     },
     jasmine: {
       name: 'Jasmine Tea',
-      picture: '',
       price: 3.50,
+      picture: '/images/jasmine.png',
       description: 'Our Jasmine tea has a light, clean framework. Er, flavor.',
       category_id: categories.tea.id
     },
     mimosa: {
       name: 'Mimosa',
-      picture: '',
       price: 8.00,
+      picture: '/images/mimosa.png',
       description: 'Relax! Our signature Mimosa.io is a build tool that promises to transform your development workflow... by helping you go with the flow.',
       category_id: categories.juice.id
     },
     ruby: {
       name: 'Ruby Red Grapefruit Juice',
-      picture: '',
       price: 4.00,
+      picture: '/images/ruby.png',
       description: 'This glass of juice is a total gem. Ruby red grapefruit juice, made from only the finest programming language (aside from JavaScript, of course).',
       category_id: categories.juice.id
     },
     rails: {
-      name: 'on Rails',
-      picture: '',
+      name: 'Ruby on Rails',
       price: 6.50,
+      picture: '/images/rails.png',
       description: 'For an extra 2.50, order our Ruby red grapefruit juice "on rails"! 21+',
       category_id: categories.juice.id
     },
     waffle: {
       name: 'Belgian Waffle',
-      picture: '',
       price: 7.00,
+      picture: '/images/waffle.png',
       description: 'If your task is eating brunch, we can help you manage it. "Ready" to eat? Order a waffle! Deal with your issues! Done!',
       category_id: categories.food.id
     },
     stack: {
       name: 'Stack (of Pancakes)',
-      picture: '',
       price: 5.00,
+      picture: '/images/stack.png',
       description: 'Last in, first out. Watch out for overflow.',
       category_id: categories.food.id
     },
     fullstack: {
-      name: 'Fullstack (of Pancakes)',
-      picture: '',
+      name: 'Fullstack',
       price: 9.00,
+      picture: '/images/pancake.png',
       description: 'Why pick one pancake when you could tackle the full stack?',
       category_id: categories.food.id
     },
     cookie: {
       name: 'Cookie',
-      picture: '',
       price: 2.00,
+      picture: '/images/cookie.png',
       description: 'This site uses cookies. By continuing to browse the menu, you are agreeing to our use of cookies. Options include fortune cookies or chocolate chip.',
       category_id: categories.food.id
     }
