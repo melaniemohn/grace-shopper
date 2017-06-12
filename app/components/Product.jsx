@@ -6,7 +6,15 @@ const Product = (props) => {
   console.log('PRODUCTS', product)
   return (
     <div>
-      <h3>{ product.name }</h3>
+      <h2>{ product.name }</h2>
+        <div className="col-xs-5">
+          <img src={product.picture}/>
+          <h4>${product.price}</h4>
+          <h5>{product.description}</h5>
+        </div>
+        <div className="col-xs-5">
+          <h3>Reviews:</h3>
+        </div>
     </div>
   )
 }

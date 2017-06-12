@@ -5,6 +5,8 @@ const User = db.model('users')
 const Orders = db.model('orders')
 const Oauth = db.model('oauths')
 const Review = db.model('reviews')
+const OrderItem = db.model('orderItem')
+const Products = db.model('products')
 
 const { mustBeLoggedIn, forbidden, selfOnly, isAdmin, selfOrAdmin } = require('./auth.filters')
 
@@ -19,7 +21,7 @@ const { mustBeLoggedIn, forbidden, selfOnly, isAdmin, selfOrAdmin } = require('.
 // req.user (from deserializeUser) tells us if there is a logged in user. And they will have all the properties that a user instance has -- KHCL
 
 module.exports = require('express').Router()
-  .get('/', forbidden('your are not an admin'),
+  .get('/', forbidden('you are not an admin'),
     (req, res, next) =>
       User.findAll()
         .then(users => res.json(users))
@@ -30,14 +32,24 @@ module.exports = require('express').Router()
       .then(user => res.status(201).json(user))
       .catch(next))
   .get('/:id',
-    selfOrAdmin, // selfOrAdmin -- KHCL
+    selfOrAdmin,
     (req, res, next) => {
-      const options = req.query.orders ? {include: [Orders]} : {}
-      User.findById(req.params.id, options)
+      User.findById(req.params.id, {include: [{model: Orders, include: [{model: OrderItem, include: [Products]}]}]})
       .then(user => res.json(user))
       .catch(next)
     })
-  .get('/:id/orders/:orderId', mustBeLoggedIn, // this could be handled in orders route with conditional before sending response -- KHCL
+  // MPM adding a new route below to get all orders by a user
+  .get('/:id/orders', /* mustBeLoggedIn, */
+    (req, res, next) => {
+      const userId = req.params.id
+      Orders.findAll({
+        where: {
+          user_id: userId
+        }
+      }).then(orders => res.json(orders))
+      .catch(next)
+    })
+  .get('/:id/orders/:orderId', mustBeLoggedIn, // this could be handled in orders route with conditional before sending response -- KHCL */
     (req, res, next) => {
       const userId = req.params.id
       const orderId = req.params.orderId
@@ -49,23 +61,19 @@ module.exports = require('express').Router()
       }).then((order) => res.json(order))
       .catch(next)
     })
-    .put('/:id', selfOnly, (req, res, next) => { // security -- KHCL
-      const userId = req.params.id
-      const data = req.body // can they change their own isAdmin? -- KHCL
-      User.update(
-        {data},
-        {where: {id: userId}}
-      ).spread((affectedUsers) /* you don't use this varialbe so why define it? -- KHCL */ => User.findById(userId)).then((user) => { // chain .then in the same way visually you do in the rest of the file -- KHCL
-        res.json(user) // 201 created doesn't make sense here -- KHCL
-      }).catch(next)
-    })
+  .put('/:id', selfOnly, (req, res, next) => { // instead of selfOnly, use selfOrAdmin???
+    // MPM fix User.update, but we'll also need to do a selfOrAdmin check, right?
+    const userId = req.params.id
+    const data = req.body // can they change their own isAdmin? -- KHCL
+    User.update({data}, { where: {id: userId} })
+    .spread((affectedUsers) => User.findById(userId))
+    .then((user) => res.json(user))
+    .catch(next)
+  })
+  // fix this one too
   .delete('/:id', forbidden('Only an admin can do that'), (req, res, next) => { // security -- kHCL
     const userId = req.params.id
-    User.destroy({ // look into cascade option to replace all other destroys (those should be happenign in parallel anyway) -- KHCL
-      where: {
-        id: userId
-      }
-    })
+    User.destroy({ where: {id: userId} })
       .then((affectedRows) => {
         if (affectedRows === 0) {
           res.status(404)
