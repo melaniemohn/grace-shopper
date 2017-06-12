@@ -35,7 +35,7 @@ const reducer = (state = initialOrdersState, action) => {
 
 /* ------------------ dispatchers ------------------- */
 
-export const fetchOrdersByUser = (id) => dispatch => {
+export const fetchOrdersByUser = id => dispatch => {
   axios.get(`/api/users/${id}/orders/`)
   .then(res => {
     dispatch(get(res.data))
