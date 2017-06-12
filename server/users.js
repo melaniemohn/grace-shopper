@@ -18,8 +18,9 @@ const { mustBeLoggedIn, forbidden, selfOnly, isAdmin, selfOrAdmin } = require('.
 // consider me because you can't get all users right now. Remove this and add validation that assertAdmin -- KHCL
 // req.user (from deserializeUser) tells us if there is a logged in user. And they will have all the properties that a user instance has -- KHCL
 
+// MPM: the big issue here is that we don't have our login page working, and until we do, we can't get ANY of this data
 module.exports = require('express').Router()
-  .get('/', forbidden('your are not an admin'),
+  .get('/', /* forbidden('you are not an admin'), */
     (req, res, next) =>
       User.findAll()
         .then(users => res.json(users))
@@ -30,14 +31,14 @@ module.exports = require('express').Router()
       .then(user => res.status(201).json(user))
       .catch(next))
   .get('/:id',
-    selfOrAdmin, // selfOrAdmin -- KHCL
+    /* selfOrAdmin, */
     (req, res, next) => {
       const options = req.query.orders ? {include: [Orders]} : {}
       User.findById(req.params.id, options)
       .then(user => res.json(user))
       .catch(next)
     })
-  .get('/:id/orders/:orderId', mustBeLoggedIn, // this could be handled in orders route with conditional before sending response -- KHCL
+  .get('/:id/orders/:orderId', /* mustBeLoggedIn, // this could be handled in orders route with conditional before sending response -- KHCL */
     (req, res, next) => {
       const userId = req.params.id
       const orderId = req.params.orderId
@@ -49,7 +50,9 @@ module.exports = require('express').Router()
       }).then((order) => res.json(order))
       .catch(next)
     })
-    .put('/:id', selfOnly, (req, res, next) => { // security -- KHCL
+    .put('/:id', /* selfOnly, */ (req, res, next) => { // security -- KHCL
+      // MPM COME BACK TO THIS ONE
+      // MPM fix .update, but we'll also need to do a selfOrAdmin check, right?
       const userId = req.params.id
       const data = req.body // can they change their own isAdmin? -- KHCL
       User.update(
@@ -61,7 +64,7 @@ module.exports = require('express').Router()
     })
   .delete('/:id', forbidden('Only an admin can do that'), (req, res, next) => { // security -- kHCL
     const userId = req.params.id
-    User.destroy({ // look into cascade option to replace all other destroys (those should be happenign in parallel anyway) -- KHCL
+    User.destroy({ // look into cascade option to replace all other destroys (those should be happening in parallel anyway) -- KHCL
       where: {
         id: userId
       }
