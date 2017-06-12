@@ -4,6 +4,7 @@ const passport = require('passport')
 
 const {User, OAuth} = require('APP/db')
 const auth = require('express').Router()
+const {FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET} = require('../secret')
 
 /*************************
  * Auth strategies
@@ -39,7 +40,7 @@ OAuth.setupStrategy({
   config: {
     clientID: env.FACEBOOK_CLIENT_ID,
     clientSecret: env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: `${app.baseUrl}/api/auth/login/facebook`,
+    callbackURL: `${app.baseUrl}/products`,
   },
   passport
 })
@@ -52,7 +53,7 @@ OAuth.setupStrategy({
   config: {
     clientID: env.GOOGLE_CLIENT_ID,
     clientSecret: env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `${app.baseUrl}/api/auth/login/google`,
+    callbackURL: `${app.baseUrl}/products`,
   },
   passport
 })
