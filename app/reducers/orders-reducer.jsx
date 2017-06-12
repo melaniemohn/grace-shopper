@@ -36,6 +36,7 @@ const reducer = (state = initialOrdersState, action) => {
 /* ------------------ dispatchers ------------------- */
 
 export const fetchOrdersByUser = id => dispatch => {
+  // change this route... should have order info on state already in single-user page?
   axios.get(`/api/users/${id}/orders/`)
   .then(res => {
     dispatch(get(res.data))
