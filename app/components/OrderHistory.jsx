@@ -4,6 +4,9 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
+import { fetchOrdersByUser } from '../reducers/orders-reducer'
+// change where we're getting this function?
+// or, better, change the back-end route we're hitting in fetchOrdersByUser
 
 // ----- order history component -----
 // make order ID a link to single-order page
@@ -42,6 +45,6 @@ export const OrderHistory = (props) => {
 // ----- order history container -----
 const mapStateToProps = (state) => ({orders: state.orders.list})
 
-const mapDispatchToProps = null
+const mapDispatchToProps = ({ fetchOrdersByUser })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory)
