@@ -18,6 +18,7 @@ const initialUsersState = {
 }
 
 const reducer = (state = initialUsersState, action) => {
+  console.log('in user reducer', action)
   switch (action.type) {
   case GET_USERS:
     return Object.assign({}, state, {list: action.users})
