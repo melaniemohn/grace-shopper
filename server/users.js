@@ -5,7 +5,7 @@ const User = db.model('users')
 const Orders = db.model('orders')
 const Oauth = db.model('oauths')
 const Review = db.model('reviews')
-const OrederItem = db.model('orderItem')
+const OrderItem = db.model('orderItem')
 const Products = db.model('products')
 
 const { mustBeLoggedIn, forbidden, selfOnly, isAdmin, selfOrAdmin } = require('./auth.filters')
@@ -34,11 +34,8 @@ module.exports = require('express').Router()
   .get('/:id',
     selfOrAdmin,
     (req, res, next) => {
-      console.log('server got to gte/users/id')
-      // const options = req.query.orders ? {include: [Orders]} : {}
-      User.findById(req.params.id, {include: [{model: Orders, include: [{model: OrederItem, include: [Products]}]}]})
+      User.findById(req.params.id, {include: [{model: Orders, include: [{model: OrderItem, include: [Products]}]}]})
       .then(user => {
-        console.log('in get user', user)
         return res.json(user)
       })
       .catch(next)
@@ -55,8 +52,8 @@ module.exports = require('express').Router()
       }).then((order) => res.json(order))
       .catch(next)
     })
+    // MPM I'm confused by this whole .put situation
     .put('/:id', selfOnly, (req, res, next) => { // security -- KHCL
-      // MPM COME BACK TO THIS ONE
       // MPM fix .update, but we'll also need to do a selfOrAdmin check, right?
       const userId = req.params.id
       const data = req.body // can they change their own isAdmin? -- KHCL
