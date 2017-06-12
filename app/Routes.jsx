@@ -26,6 +26,7 @@ import { fetchCategories, fetchCategory } from './reducers/category-reducer'
 const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
   <Router history={browserHistory}>
     <Route path="/" component={App} onEnter={fetchInitialData}>
+      <Route path="/login" component={Login} />
       <Route path="/categories" component={Categories} />
       <Route path="/categories/:id" component={CategoryContainer} onEnter={onCategoryEnter} />
       <Route path="/products" component={ProductsContainer} />
