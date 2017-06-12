@@ -10,11 +10,19 @@ class Login extends React.Component {
 
   render() {
     return (
+      <div>
       <form onSubmit={this.onLoginSubmit}>
         <input name="email" />
         <input name="password" type="password" />
         <button type="submit" className="btn btn-block btn-primary">Submit</button>
       </form>
+        <a
+          href="api/auth/login/google"
+          className="btn btn-social btn-google">
+          <i className = "fa fa-google"></i>
+          <span>with Google</span>
+      </ a>
+      </ div>
     )
   }
 
