@@ -6,6 +6,7 @@ export default function Navbar(props) {
     <nav className="navbar navbar-default">
       <div className="container-fluid">
         <div className="navbar-header">
+            <img src="/images/pancake-emoji.png" />
         </div>
         <ul className="nav navbar-nav">
           <li>

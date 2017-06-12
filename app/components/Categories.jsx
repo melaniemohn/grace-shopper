@@ -14,20 +14,19 @@ export const Categories = (props) => {
   console.log('categories??', props.categories)
 
   return (
-    <div>
+    <div className="container">
       <h2>Browse our internet cafe by selecting a category!</h2>
-      <ul>
         {
           props.categories.map(category => (
-              <div key={category.id}>
-                <Link to={`/categories/${category.id}`}>
-                <h3>{category.name}</h3>
+              <div className="col-xs-5" key={category.id}>
+                <Link className="img-responsive" to={`/categories/${category.id}`}>
+                  <img src={category.image}/>
+                  <h3>{category.name}</h3>
                 </Link>
               </div>
             )
           )
         }
-      </ul>
     </div>
   )
 }
