@@ -1,3 +1,6 @@
+// name this file consistently --KHCL
+
+
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
@@ -14,7 +17,7 @@ const reducer = (state = initialProductsState, action) => {
   case GETONEPRODUCT:
     return Object.assign({}, state, {selected: action.product})
   case ADD_PRODUCT_FRONT:
-    const newState = Object.assign({}, state)
+    const newState = Object.assign({}, state) // {list: [...list, action.product]} --KHCL
     newState.list.push(action.product)
     return newState
 
@@ -26,7 +29,7 @@ const reducer = (state = initialProductsState, action) => {
 /* ------------------------ ACTIONS ------------------------ */
 const GETPRODUCTS = 'GET_PRODUCTS'
 const GETONEPRODUCT = 'GET_ONE_PRODUCT'
-const ADD_PRODUCT_FRONT= 'ADD_PRODUCT_FRONT'
+const ADD_PRODUCT_FRONT= 'ADD_PRODUCT_FRONT'  // underscore or not -- consistency -KHCL
 
 /* ------------------------ ACTION CREATORS ------------------------ */
 export const getProducts = products => ({
@@ -56,10 +59,11 @@ export const fetchOneProduct = (productId) =>
 
 export const addProductBack = (name, image, price, description, categoryId) =>
   (dispatch, getState) => axios.post('/api/products', {
-    name: name,
+  // why do you have getState? You define it but never use it. We do have access to it, but we don't ever use it so we can remove. -KHCL
+    name: name,  // we can just do name (thank ES6) --KHCL
     picture: image,
-    price: price,
-    description: description,
+    price: price, // same as name -- KHCL
+    description: description, // same as name --KHCL
     category_id: categoryId
   })
       .then(product => {

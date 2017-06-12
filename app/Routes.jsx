@@ -4,7 +4,8 @@ import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-ro
 
 // components
 // ADD MORE COMPONENTS as we write them
-import store from './store'
+import store from './store' // delete this -KHCL
+
 import App from './components/App'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
@@ -23,6 +24,10 @@ import { fetchCategories, fetchCategory } from './reducers/category-reducer'
 // add an index route right under "/"...       <IndexRoute component={Categories} />
 // again, ADD MORE ROUTES as we write their components... login, user pages, cart, checkout, etc.
 // that said, we might not need all of the fetch functions that are listed... since some of that info is on state anyway
+
+
+// on line 39 : add-product doesn't need an onEnter
+
 const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
   <Router history={browserHistory}>
     <Route path="/" component={App} onEnter={fetchInitialData}>
