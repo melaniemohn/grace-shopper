@@ -32,9 +32,13 @@ module.exports = require('express').Router()
   .get('/:id',
     selfOrAdmin,
     (req, res, next) => {
+      console.log('server got to gte/users/id')
       const options = req.query.orders ? {include: [Orders]} : {}
       User.findById(req.params.id, options)
-      .then(user => res.json(user))
+      .then(user => {
+        console.log('in get user', user)
+        return res.json(user)
+      })
       .catch(next)
     })
   // MPM adding a new route below to get all orders by a user
