@@ -5,6 +5,8 @@ const User = db.model('users')
 const Orders = db.model('orders')
 const Oauth = db.model('oauths')
 const Review = db.model('reviews')
+const OrederItem = db.model('orderItem')
+const Products = db.model('products')
 
 const { mustBeLoggedIn, forbidden, selfOnly, isAdmin, selfOrAdmin } = require('./auth.filters')
 
@@ -33,8 +35,8 @@ module.exports = require('express').Router()
     selfOrAdmin,
     (req, res, next) => {
       console.log('server got to gte/users/id')
-      const options = req.query.orders ? {include: [Orders]} : {}
-      User.findById(req.params.id, options)
+      // const options = req.query.orders ? {include: [Orders]} : {}
+      User.findById(req.params.id, {include: [{model: Orders, include: [{model: OrederItem, include: [Products]}]}]})
       .then(user => {
         console.log('in get user', user)
         return res.json(user)
