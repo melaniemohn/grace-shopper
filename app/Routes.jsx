@@ -22,7 +22,6 @@ import { fetchCategories, fetchCategory } from './reducers/category-reducer'
 // ----- routes component -----
 // add an index route right under "/"...       <IndexRoute component={Categories} />
 // again, ADD MORE ROUTES as we write their components... login, user pages, cart, checkout, etc.
-// that said, we might not need all of the fetch functions that are listed... since some of that info is on state anyway
 const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
   <Router history={browserHistory}>
     <Route path="/" component={App} onEnter={fetchInitialData}>
@@ -37,7 +36,7 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter }) => (
 )
 
 // ----- routes container -----
-// MPM note: in fetchInitialDate, order matters!!!
+// MPM note: in fetchInitialData, order matters!!!
 const mapStateToProps = null
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => {
@@ -55,7 +54,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes)
-
-/*
-
- */
