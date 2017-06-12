@@ -6,9 +6,37 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 
 // ----- order history component -----
+// make order ID a link to single-order page
+// and add an order date to onSubmit somehow
 
 export const OrderHistory = (props) => {
+  console.log('props', props)
+  const orders = props.orders
 
+  return (
+    <div className="container">
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Order Date</th>
+            <th>Order ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            orders && orders.map(order => (
+              <tr key={order.id}>
+                <td>oops order date here</td>
+                <td>
+                  <Link to={`/orders/${order.id}`}>{order.id}</Link>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 // ----- order history container -----
