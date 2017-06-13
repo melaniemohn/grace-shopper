@@ -122,7 +122,6 @@ passport.use(new (require('passport-local').Strategy)(
 ))
 
 auth.get('/whoami', (req, res) => {
-  console.log('USER', req.user)
   res.send(req.user)
 })
 // POST requests for local login:
@@ -132,7 +131,7 @@ auth.post('/login/local', passport.authenticate('local', {successRedirect: '/'})
 
 // GET requests for OAuth login:
 // Register this route as a callback URL with OAuth provider
-auth.get('/login/:strategy', (req, res, next) =>
+auth.get('/login/:strategy', (req, res, next) => {
   passport.authenticate(req.params.strategy, {
     scope: 'email', // You may want to ask for additional OAuth scopes. These are
                     // provider specific, and let you access additional data (like
@@ -140,7 +139,7 @@ auth.get('/login/:strategy', (req, res, next) =>
     successRedirect: '/',
     // Specify other config here
   })(req, res, next)
-)
+})
 
 auth.post('/logout', (req, res) => {
   req.logout()
