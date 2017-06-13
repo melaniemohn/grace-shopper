@@ -4,6 +4,6 @@ import {connect} from 'react-redux'
 
 const mapState = () => ({ message: 'Log in' })
 
-const mapDispatch = () => ({ login: login })
+const mapDispatch = ({ login })
 
 export default connect(mapState, mapDispatch)(Login)

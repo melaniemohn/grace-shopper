@@ -8,16 +8,14 @@ import { connect } from 'react-redux'
 // ----- categories component -----
 
 export const Categories = (props) => {
-  console.log('props', props)
-  // const categories = props.categories
+  const categories = props.categories
   // console.log('categories??', categories)
-  console.log('categories??', props.categories)
 
   return (
     <div className="container">
       <h2>Browse our internet cafe by selecting a category!</h2>
         {
-          props.categories.map(category => (
+          categories && categories.map(category => (
               <div className="col-xs-5" key={category.id}>
                 <Link className="img-responsive" to={`/categories/${category.id}`}>
                   <img src={category.image}/>
