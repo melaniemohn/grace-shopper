@@ -67,7 +67,7 @@ export const fetchSingleOrder = (orderId) => dispatch => {
 
 export const addProductToCart = (product, userId) =>
   dispatch =>
-    axios.put(`/api/orders/cart/${product.id}`, {
+    axios.post('/api/orders/cart', {
       user_id: userId,
       quantity: 1,
       price: product.price,
