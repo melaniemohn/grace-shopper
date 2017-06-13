@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const GET_ORDERS = 'GET_ORDERS'
 const SELECT_ORDER = 'SELECT_ORDER'
+const SET_CART = 'SET_CART'
 // const CREATE_ORDER = 'CREATE_ORDER'
 // const UPDATE_ORDER = 'UPDATE_ORDER'
 // we'll use UPDATE_ORDER to edit the cart, which is just an order with a status of 'cart'
@@ -12,6 +13,7 @@ const SELECT_ORDER = 'SELECT_ORDER'
 
 export const get = (orders) => ({ type: GET_ORDERS, orders })
 export const select = (order) => ({ type: SELECT_ORDER, order })
+export const setCart = cart => ({type: SET_CART, cart})
 // export const create = (order) => ({ type: CREATE_ORDER, order })
 // export const update = (order) => ({ type: UPDATE_ORDER, order })
 
@@ -19,7 +21,8 @@ export const select = (order) => ({ type: SELECT_ORDER, order })
 
 const initialOrdersState = {
   list: [],
-  selected: {}
+  selected: {},
+  cart: []
 }
 
 const reducer = (state=initialOrdersState, action) => {
@@ -28,6 +31,8 @@ const reducer = (state=initialOrdersState, action) => {
     return Object.assign({}, state, {list: action.orders})
   case SELECT_ORDER:
     return Object.assign({}, state, {selected: action.order})
+  case SET_CART:
+    return Object.assign({}, state, {cart: action.cart})
   default:
     return initialOrdersState
   }
@@ -60,4 +65,16 @@ export const fetchSingleOrder = (orderId) => dispatch => {
   .catch(err => console.error('Error fetching order info :(', err))
 }
 
+export const addProductToCart = (product, userId) =>
+  dispatch =>
+    axios.post('/api/orders/cart', {
+      user_id: userId,
+      quantity: 1,
+      price: product.price,
+      product_id: product.id
+    }).then(res => dispatch(setCart(res.data)))
+      .catch(err => console.error('Fail to update cart', err))
+
 export default reducer
+
+// `api/orders/cart/${product.id}?user=${userId}`

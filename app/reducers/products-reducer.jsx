@@ -17,7 +17,6 @@ const reducer = (state = initialProductsState, action) => {
     const newState = Object.assign({}, state)
     newState.list.push(action.product)
     return newState
-
   default:
     return state
   }
