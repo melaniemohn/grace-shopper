@@ -18,6 +18,9 @@ export default function Navbar(props) {
           <li>
             <Link to="/products" activeClassName="active">Products</Link>
           </li>
+          <li>
+            <Link to="/login" activeClassName="active">Login</Link>
+          </li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
           <li>
