@@ -70,11 +70,11 @@ export const fetchSingleOrder = (orderId) => dispatch => {
 }
 
 export const fetchCart = () => dispatch => {
-  axios.get('/api/cart')
+  axios.get('/api/orders/cart' /* , {user_id: userId} */)
   .then(res => {
     dispatch(getCart(res.data))
   })
-  .catch(err => console.error('Error fetching cart lololol', err))
+  .catch(err => console.error('Error fetching cart', err))
 }
 
 export const addProductToCart = (product, userId) =>

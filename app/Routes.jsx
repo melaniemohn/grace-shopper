@@ -22,7 +22,7 @@ import Cart from './components/Cart'
 import { fetchProducts, fetchOneProduct } from './reducers/products-reducer'
 import { fetchCategories, fetchCategory } from './reducers/category-reducer'
 import { fetchUser, fetchUsers } from './reducers/user-reducer'
-import { fetchSingleOrder, fetchOrdersByUser } from './reducers/orders-reducer'
+import { fetchSingleOrder, fetchOrdersByUser, fetchCart } from './reducers/orders-reducer'
 // MPM don't forget to import dispatcher to add product to cart
 // also, do we need fetchOrdersByUser from orders-reducer?? what happens for guest?
 // add this logic (to check for current user, using auth??) to the orders reducer
@@ -33,7 +33,7 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter
   <Router history={browserHistory}>
     <Route path="/" component={App} onEnter={fetchInitialData}>
       <Route path="/login" component={Login} />
-      <Route path="/cart" component={Cart} onEnter={onCartEnter} />
+      <Route path="/orders/cart" component={Cart} onEnter={onCartEnter} />
       <Route path="/categories" component={Categories} />
       <Route path="/categories/:id" component={CategoryContainer} onEnter={onCategoryEnter} />
       <Route path="/products" component={ProductsContainer} />
@@ -74,11 +74,9 @@ const mapDispatchToProps = dispatch => ({
     const orderId = nextState.params.id
     dispatch(fetchSingleOrder(orderId))
   },
-  // MPM note: where do we want to check for user? onCartEnter??
-  // instead of doing onCartEnter, could we just call that dispatcher in Cart component?
-  // onCartEnter: () => {
-  //   dispatch(fetchOrdersByUser())
-  // }
+  onCartEnter: () => {
+    dispatch(fetchCart())
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes)

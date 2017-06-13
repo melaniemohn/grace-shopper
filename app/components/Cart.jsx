@@ -11,7 +11,7 @@ import { Link } from 'react-router'
 
 export const Cart = (props) => {
   console.log('props in Cart', props)
-  const items = props.cart
+  const items = props.cart.orderItems
 
   return (
     <div className="container">
