@@ -13,8 +13,6 @@ import { connect } from 'react-redux'
 export const OrderDetail = (props) => {
   const order = props.selectedOrder
   const items = props.selectedOrder.orderItems
-  console.log('items???', items)
-  // we *have* products...
   // instead of looping over our product list (don't even map products to props!!)...
   // ...let's rewrite the api route to include product data the way we did with users
   return (

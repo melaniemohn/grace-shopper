@@ -24,7 +24,7 @@ export default function Navbar(props) {
         </ul>
         <ul className="nav navbar-nav navbar-right">
           <li>
-            <Link to="/cart" activeClassName="active">Cart</Link>
+            <Link to="/orders/cart" activeClassName="active">Cart</Link>
           </li>
         </ul>
       </div>
