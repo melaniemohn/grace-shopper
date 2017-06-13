@@ -5,24 +5,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-// import functions from cart reducer here?? to update / delete items
+// import functions from reducer here to update / delete items
 
 // ----- cart component -----
 
 export const Cart = (props) => {
-  // we want to filter for where order.status is cart
-  const orders = props.orders.list
-  const cart = orders && orders.filter(order => order.status = 'list')
-  // MPM omg husky hates me
-  // const cart = orders.filter((order) => {
-  //   return order.status = 'list'
-  // })
+  console.log('props in Cart', props)
+  const items = props.cart
 
-  const items = cart && props.cart.orderItems
-  // also, add a submit order button to the bottom
   return (
     <div className="container">
-      <h3>Here are the items in your cart. Buy more shit!</h3>
+      <h3>Here are the items in your cart. Buy more!</h3>
       <table className="table">
         <thead>
           <tr>
@@ -53,7 +46,7 @@ export const Cart = (props) => {
 // ----- cart container -----
 // instead of getting all the orders, fetch by user (see Routes)
 const mapStateToProps = (state) => ({
-  orders: state.orders.list
+  cart: state.orders.cart
 })
 
 // we'll want to mapDispatch a function to add to cart??

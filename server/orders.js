@@ -7,13 +7,24 @@ const { selfOnly } = require('./auth.filters')
 const Products = db.model('products')
 
 module.exports = require('express').Router()
-  .get('/', // adminOnly -- KHCL (MPM: actually, I don't think we even need this route yet??)
+  .get('/', // adminOnly -- KHCL (MPM: actually, I don't think we even need this route??)
     (req, res, next) =>
       Order.findAll()
         .then(allOrders => res.json(allOrders))
         .catch(next))
   .get('/cart', (req, res, next) => {
-    console.log('inthe cr')
+    console.log('in the cart!')
+    const userId = req.body.user_id
+    const productId = req.body.product_id
+    const data = req.body
+    if (userId) {
+      Order.findOrCreate({
+        where: {
+          user_id: userId,
+          status: 'cart'
+        }
+      })
+    }
   })
   .get('/:orderId', // route.param here -- KHCL
     (req, res, next) =>

@@ -3,6 +3,9 @@ import { Link } from 'react-router'
 
 const Products = (props) => {
   const products = props.products
+  const userId = props.userId
+  const addProductToCart = props.onAddProductToCart
+
   return (
     <div>
      <div className="container">
@@ -17,6 +20,7 @@ const Products = (props) => {
                 </Link>
                   <h4>{product.price}</h4>
                   <h5>{product.description}</h5>
+                <button type="button" className="btn btn-default" onClick={() => addProductToCart(product, userId)}>Add To Cart</button>
               </div>
             </div>
           ))

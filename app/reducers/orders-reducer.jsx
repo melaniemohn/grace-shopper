@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const GET_ORDERS = 'GET_ORDERS'
 const SELECT_ORDER = 'SELECT_ORDER'
+const GET_CART = 'GET_CART'
 const SET_CART = 'SET_CART'
 // const CREATE_ORDER = 'CREATE_ORDER'
 // const UPDATE_ORDER = 'UPDATE_ORDER'
@@ -13,6 +14,7 @@ const SET_CART = 'SET_CART'
 
 export const get = (orders) => ({ type: GET_ORDERS, orders })
 export const select = (order) => ({ type: SELECT_ORDER, order })
+export const getCart = cart => ({type: GET_CART, cart})
 export const setCart = cart => ({type: SET_CART, cart})
 // export const create = (order) => ({ type: CREATE_ORDER, order })
 // export const update = (order) => ({ type: UPDATE_ORDER, order })
@@ -31,6 +33,8 @@ const reducer = (state=initialOrdersState, action) => {
     return Object.assign({}, state, {list: action.orders})
   case SELECT_ORDER:
     return Object.assign({}, state, {selected: action.order})
+  case GET_CART:
+    return Object.assign({}, state, {cart: action.cart})
   case SET_CART:
     return Object.assign({}, state, {cart: action.cart})
   default:
@@ -63,6 +67,14 @@ export const fetchSingleOrder = (orderId) => dispatch => {
     dispatch(select(res.data))
   })
   .catch(err => console.error('Error fetching order info :(', err))
+}
+
+export const fetchCart = () => dispatch => {
+  axios.get('/api/cart')
+  .then(res => {
+    dispatch(getCart(res.data))
+  })
+  .catch(err => console.error('Error fetching cart lololol', err))
 }
 
 export const addProductToCart = (product, userId) =>
