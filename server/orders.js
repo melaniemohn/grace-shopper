@@ -4,9 +4,10 @@ const db = require('APP/db')
 const Order = db.model('orders')
 const OrderItem = db.model('orderItem')
 const { selfOnly } = require('./auth.filters')
+const Products = db.model('products')
 
 module.exports = require('express').Router()
-  .get('/', // adminOnly -- KHCL
+  .get('/', // adminOnly -- KHCL (MPM: actually, I don't think we even need this route yet??)
     (req, res, next) =>
       Order.findAll()
         .then(allOrders => res.json(allOrders))
@@ -16,7 +17,7 @@ module.exports = require('express').Router()
       Order.findOne({ // findById -- KHCL
         where: {id: req.params.orderId},
         include: [
-          {model: OrderItem, where: {order_id: req.params.orderId}} // shouldn't need this where clause -- KHCL
+          {model: OrderItem, include: [{model: Products}]}
         ]
       })
         .then(order => {

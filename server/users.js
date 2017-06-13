@@ -5,6 +5,8 @@ const User = db.model('users')
 const Orders = db.model('orders')
 const Oauth = db.model('oauths')
 const Review = db.model('reviews')
+const OrderItem = db.model('orderItem')
+const Products = db.model('products')
 
 const { mustBeLoggedIn, forbidden, selfOnly, isAdmin, selfOrAdmin } = require('./auth.filters')
 
@@ -32,13 +34,8 @@ module.exports = require('express').Router()
   .get('/:id',
     selfOrAdmin,
     (req, res, next) => {
-      console.log('server got to gte/users/id')
-      const options = req.query.orders ? {include: [Orders]} : {}
-      User.findById(req.params.id, options)
-      .then(user => {
-        console.log('in get user', user)
-        return res.json(user)
-      })
+      User.findById(req.params.id, {include: [{model: Orders, include: [{model: OrderItem, include: [Products]}]}]})
+      .then(user => res.json(user))
       .catch(next)
     })
   // MPM adding a new route below to get all orders by a user
@@ -64,25 +61,19 @@ module.exports = require('express').Router()
       }).then((order) => res.json(order))
       .catch(next)
     })
-    .put('/:id', selfOnly, (req, res, next) => { // security -- KHCL
-      // MPM COME BACK TO THIS ONE
-      // MPM fix .update, but we'll also need to do a selfOrAdmin check, right?
-      const userId = req.params.id
-      const data = req.body // can they change their own isAdmin? -- KHCL
-      User.update(
-        {data},
-        {where: {id: userId}}
-      ).spread((affectedUsers) /* you don't use this varialbe so why define it? -- KHCL */ => User.findById(userId)).then((user) => { // chain .then in the same way visually you do in the rest of the file -- KHCL
-        res.json(user) // 201 created doesn't make sense here -- KHCL
-      }).catch(next)
-    })
+  .put('/:id', selfOnly, (req, res, next) => { // instead of selfOnly, use selfOrAdmin???
+    // MPM fix User.update, but we'll also need to do a selfOrAdmin check, right?
+    const userId = req.params.id
+    const data = req.body // can they change their own isAdmin? -- KHCL
+    User.update({data}, { where: {id: userId} })
+    .spread((affectedUsers) => User.findById(userId))
+    .then((user) => res.json(user))
+    .catch(next)
+  })
+  // fix this one too
   .delete('/:id', forbidden('Only an admin can do that'), (req, res, next) => { // security -- kHCL
     const userId = req.params.id
-    User.destroy({ // look into cascade option to replace all other destroys (those should be happening in parallel anyway) -- KHCL
-      where: {
-        id: userId
-      }
-    })
+    User.destroy({ where: {id: userId} })
       .then((affectedRows) => {
         if (affectedRows === 0) {
           res.status(404)

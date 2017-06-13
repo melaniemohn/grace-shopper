@@ -4,6 +4,7 @@ const passport = require('passport')
 
 const {User, OAuth} = require('APP/db')
 const auth = require('express').Router()
+const {FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET} = require('../secret')
 
 /*************************
  * Auth strategies
@@ -120,8 +121,10 @@ passport.use(new (require('passport-local').Strategy)(
   }
 ))
 
-auth.get('/whoami', (req, res) => res.send(req.user))
-
+auth.get('/whoami', (req, res) => {
+  console.log('USER', req.user)
+  res.send(req.user)
+})
 // POST requests for local login:
 auth.post('/login/local', passport.authenticate('local', {successRedirect: '/'}))
 

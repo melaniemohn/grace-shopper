@@ -1,20 +1,39 @@
 import React from 'react'
-
-export const Login = ({ login }) => (
-  <form onSubmit={evt => {
-    evt.preventDefault()
-    login(evt.target.username.value, evt.target.password.value)
-  } }>
-    <input name="username" />
-    <input name="password" type="password" />
-    <input type="submit" value="Login" />
-  </form>
-)
-
 import {login} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
 
-export default connect(
-  state => ({}),
-  {login},
-)(Login)
+class Login extends React.Component {
+  constructor(props) {
+    super(props)
+    this.onLoginSubmit = this.onLoginSubmit.bind(this)
+    this.login = login.bind(this)
+  }
+
+  render() {
+    return (
+      <div>
+      <form onSubmit={this.onLoginSubmit}>
+        <input name="email" />
+        <input name="password" type="password" />
+        <button type="submit" className="btn btn-xs btn-primary">Submit</button>
+      </form>
+        <a
+          href="api/auth/login/google"
+          className="btn btn-social btn-google">
+          <i className = "fa fa-google"></i>
+          <span>Log in with Google</span>
+        </a>
+      </div>
+    )
+  }
+
+  onLoginSubmit(event) {
+    event.preventDefault()
+    const credentials = {
+      email: event.target.email.value,
+      password: event.target.password.value
+    }
+    login(credentials)
+  }
+}
+
+export default Login
