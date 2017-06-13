@@ -22,7 +22,7 @@ const initialOrdersState = {
   selected: {}
 }
 
-const reducer = (state = initialOrdersState, action) => {
+const reducer = (state=initialOrdersState, action) => {
   switch (action.type) {
   case GET_ORDERS:
     return Object.assign({}, state, {list: action.orders})
