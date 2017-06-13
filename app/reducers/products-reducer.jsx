@@ -17,8 +17,6 @@ const reducer = (state = initialProductsState, action) => {
     const newState = Object.assign({}, state)
     newState.list.push(action.product)
     return newState
-  case SET_CART:
-    return Object.assign({}, state, {cart: action.cart})
   default:
     return state
   }
@@ -28,7 +26,6 @@ const reducer = (state = initialProductsState, action) => {
 const GETPRODUCTS = 'GET_PRODUCTS'
 const GETONEPRODUCT = 'GET_ONE_PRODUCT'
 const ADD_PRODUCT_FRONT= 'ADD_PRODUCT_FRONT'
-const SET_CART = 'SET_CART'
 
 /* ------------------------ ACTION CREATORS ------------------------ */
 export const getProducts = products => ({
@@ -41,10 +38,6 @@ export const getOneProduct = product => ({
 
 export const addProductFront = product => ({
   type: ADD_PRODUCT_FRONT, product
-})
-
-export const setCart = cart => ({
-  type: SET_CART, cart
 })
 
 /* ------------------------ DISPATCHERS ------------------------ */
@@ -73,15 +66,5 @@ export const addProductBack = (name, image, price, description, categoryId) =>
         browserHistory.push('/products')
       })
       .catch(err => console.error('Adding product unsuccessful', err))
-
-export const addProductToCart = (product, userId) =>
-  dispatch =>
-    axios.put(`api/orders/cart/${product.id}?user=${userId}`, {
-      user_id: userId,
-      quantity: 1,
-      price: product.price,
-      product_id: product.id
-    }).then(res => dispatch(setCart(res.data)))
-      .catch(err => console.error('Fail to update cart', err))
 
 export default reducer

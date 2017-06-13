@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux'
 import Product from '../components/Product'
-import { addProductToCart } from '../reducers/products-reducer'
+import { addProductToCart } from '../reducers/orders-reducer'
 
 const mapStateToProps = (state) => {
   console.log('STATE', state)

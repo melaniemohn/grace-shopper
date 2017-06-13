@@ -25,6 +25,7 @@ module.exports = require('express').Router()
         })
         .catch(next))
   .put('/cart/:productId', selfOnly, (req, res, next) => {
+    console.log('in order put')
     const userId = req.query.user
     const productId = req.params.product_id
     const data = req.body
