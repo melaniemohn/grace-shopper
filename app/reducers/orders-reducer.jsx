@@ -36,6 +36,7 @@ const reducer = (state = initialOrdersState, action) => {
 /* ------------------ dispatchers ------------------- */
 
 export const fetchOrdersByUser = id => dispatch => {
+  // change this route... should have order info on state already in single-user page?
   axios.get(`/api/users/${id}/orders/`)
   .then(res => {
     dispatch(get(res.data))
@@ -43,10 +44,18 @@ export const fetchOrdersByUser = id => dispatch => {
   .catch(err => console.error('Error fetching orders :(', err))
 }
 
-export const fetchSingleOrder = (id, orderId) => dispatch => {
+export const fetchOrderByUser = (id, orderId) => dispatch => {
   axios.get(`/api/users/${id}/orders/${orderId}`)
   .then(res => {
-    dispatch(get(res.data))
+    dispatch(select(res.data))
+  })
+  .catch(err => console.error('Error fetching order info :(', err))
+}
+
+export const fetchSingleOrder = (orderId) => dispatch => {
+  axios.get(`/api/orders/${orderId}`)
+  .then(res => {
+    dispatch(select(res.data))
   })
   .catch(err => console.error('Error fetching order info :(', err))
 }
