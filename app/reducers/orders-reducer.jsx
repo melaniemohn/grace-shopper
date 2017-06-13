@@ -10,6 +10,27 @@ const SET_CART = 'SET_CART'
 // const UPDATE_ORDER = 'UPDATE_ORDER'
 // we'll use UPDATE_ORDER to edit the cart, which is just an order with a status of 'cart'
 
+/* setting up the cart representation */
+const groupProductsOnCart = (cart) => {
+  console.log('cart:', cart)
+  let groupCart = []
+  let indx
+  let found
+  for (let i=0; i<cart.length; i++) {
+    found=false
+    for (let j=0; j<groupCart.length && !found; j++) {
+      if (groupCart[j].product_id === cart[i].product_id) {
+        groupCart[j].quantity++
+        found=true
+      }
+    }
+    if (!found) {
+      groupCart.push(cart[i])
+    }
+  }
+  return groupCart
+}
+
 /* ------------------ action creators ---------------- */
 
 export const get = (orders) => ({ type: GET_ORDERS, orders })
@@ -84,7 +105,9 @@ export const addProductToCart = (product, userId) =>
       quantity: 1,
       price: product.price,
       product_id: product.id
-    }).then(res => dispatch(setCart(res.data)))
+    }).then(res => {
+      return dispatch(setCart(groupProductsOnCart(res.data)))
+    })
       .catch(err => console.error('Fail to update cart', err))
 
 export default reducer
