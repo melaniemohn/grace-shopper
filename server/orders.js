@@ -5,13 +5,20 @@ const Order = db.model('orders')
 const OrderItem = db.model('orderItem')
 const { selfOnly } = require('./auth.filters')
 const Products = db.model('products')
+const localStorage = require('store')
 
 module.exports = require('express').Router()
-  // .get('/', // adminOnly -- KHCL (MPM: actually, I don't think we even need this route??)
-  //   (req, res, next) =>
-  //     Order.findAll()
-  //       .then(allOrders => res.json(allOrders))
-  //       .catch(next))
+  // this middleware will load any cart info on local storage
+  // actually, do we want the conditional to be if(!req.user) ???
+  .use((req, res, next) => {
+    req.cart = localStorage.get('cart')
+    next()
+  })
+  .get('/', // adminOnly -- KHCL (MPM: actually, I don't think we even need this route??)
+    (req, res, next) =>
+      Order.findAll()
+        .then(allOrders => res.json(allOrders))
+        .catch(next))
   .get('/cart', (req, res, next) => {
     console.log('in the cart!')
     const userId = req.user
@@ -26,6 +33,10 @@ module.exports = require('express').Router()
         res.json(order)
       })
       .catch(next)
+    } else {
+      localStorage.set('cart', {status: 'cart'})
+      req.cart = localStorage.get('cart')
+      res.json(req.cart)
     }
   })
   .get('/:orderId', // route.param here -- KHCL
@@ -73,6 +84,8 @@ module.exports = require('express').Router()
         })
         .catch(next)
     } else {
+      const cart = localStorage.get('cart')
+      const items = cart.orderItems || []
     }
   })
 

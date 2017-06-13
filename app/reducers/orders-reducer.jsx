@@ -87,6 +87,15 @@ export const addProductToCart = (product, userId) =>
     }).then(res => dispatch(setCart(res.data)))
       .catch(err => console.error('Fail to update cart', err))
 
+export const addProductGuest = (product) =>
+  dispatch =>
+    axios.post('/api/orders/cart/guest', {
+      quantity: 1,
+      price: product.price,
+      product_id: product.id
+    }).then(res => dispatch(setCart(res.data)))
+      .catch(err => console.error('Failed to add item to guest cart', err))
+
 export default reducer
 
 // `api/orders/cart/${product.id}?user=${userId}`
