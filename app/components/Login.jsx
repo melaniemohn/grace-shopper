@@ -21,8 +21,8 @@ class Login extends React.Component {
           className="btn btn-social btn-google">
           <i className = "fa fa-google"></i>
           <span>Log in with Google</span>
-      </ a>
-      </ div>
+        </a>
+      </div>
     )
   }
 
