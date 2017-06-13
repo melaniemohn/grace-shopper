@@ -1,3 +1,5 @@
+// WE ARE MOVING ALL OF THIS INTO THE ORDERS REDUCER yay
+
 import axios from 'axios'
 
 /* ------------------ actions ------------------------ */
