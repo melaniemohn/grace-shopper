@@ -38,7 +38,7 @@ export const Cart = (props) => {
         </tbody>
       </table>
       <Link to={'/checkout'}>
-        <button className="btn-default">Checkout</button>
+        <button className="btn-default">Proceed to Checkout</button>
       </Link>
     </div>
   )
