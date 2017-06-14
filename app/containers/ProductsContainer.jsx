@@ -8,12 +8,17 @@ import { addProductToCart } from '../reducers/orders-reducer'
 // })
 
 const mapStateToProps = (state) => {
-  let userId
-  if (state.auth) { userId = state.auth.id }
+  let userId, isAdmin
+  console.log('in proudct container auth', state.auth)
+  if (state.auth) {
+    userId = state.auth.id
+    isAdmin = state.auth.isAdmin
+  }
   return {
     products: state.products.list,
     selectedProduct: state.products.selected,
-    userId: userId
+    userId: userId,
+    isAdmin: isAdmin
   }
 }
 
