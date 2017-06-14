@@ -23,7 +23,6 @@ class Login extends React.Component {
           className="btn btn-xs">
           <img src = "https://i.stack.imgur.com/XzoRm.png" />
           <i className = "fa fa-google"></i>
-          <span>Log in with Google</span>
         </a>
       </div>
     )
