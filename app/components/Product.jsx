@@ -3,12 +3,18 @@ import { Link } from 'react-router'
 
 const Product = (props) => {
   const product = props.selectedProduct
+  const reviews = props.selectedProduct.reviews
   const userId = props.userId
   const addProductToCart = props.onAddProductToCart
 
-  console.log('PRODUCTS', product)
-  console.log('ID', userId)
-  console.log('ON CLICK', addProductToCart)
+  const starMaker = (rating) => {
+    let stars = ' '
+    for (let i = 1; i <= rating; i++) {
+      stars += ' \u2B50'
+    }
+    return stars
+  }
+
   return (
     <div>
       <h2>{ product.name }</h2>
@@ -20,6 +26,14 @@ const Product = (props) => {
         </div>
         <div className="col-xs-5">
           <h3>Reviews:</h3>
+          {
+            reviews && reviews.map(review => (
+              <div key={review.id}>
+                <h4>{review.title}{starMaker(review.stars)}</h4>
+                <h5>{review.text}</h5>
+              </div>
+            ))
+          }
         </div>
     </div>
   )
