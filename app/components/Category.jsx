@@ -14,18 +14,20 @@ const Category = (props) => {
     <div>
       <h3>{props.selectedCategory.name}</h3>
       <h4>Here's the {props.selectedCategory.name} menu! Browse products below.</h4>
-      { // filtering products here
-        // add another list item with Link for picture, right *above* name?
+      {
         products && products.filter(product => product.category_id === props.selectedCategory.id)
         .map(product => (
-          <ul>
-            <li>
-              <Link to={`/products/${product.id}`}>
-                {product.name}
+          <div className="col-xs-4" key={ product.id }>
+            <div className="well short">
+              <Link className="img-fluid" to={`/products/${product.id}`}>
+                <img src={product.picture}/>
+                <h4>{product.name}</h4>
               </Link>
-            </li>
-            <li>{product.price}</li>
-          </ul>
+                <h4>{product.price}</h4>
+                <h5>{product.description}</h5>
+              <button type="button" className="btn btn-default" onClick={() => addProductToCart(product, userId)}>Add To Cart</button>
+            </div>
+          </div>
         ))
       }
     </div>
