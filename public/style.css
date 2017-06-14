@@ -17,3 +17,7 @@ body {
 .table {
   background-color: #f8f8f8;
 }
+
+#addProduct {
+  margin-bottom: 10px;
+}
