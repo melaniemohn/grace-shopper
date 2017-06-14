@@ -38,7 +38,7 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter
       <Route path="/categories/:id" component={CategoryContainer} onEnter={onCategoryEnter} />
       <Route path="/products" component={ProductsContainer} />
       <Route path="/products/:id" component={ProductContainer} onEnter={onProductEnter} />
-      <Route path="/add-product" component={AddProduct} onEnter={onProductEnter} />
+      <Route path="/add-product" component={AddProduct}/>
       <Route path="/users" component={Users} onEnter={onUsersEnter}/>
       <Route path="/users/:id" component={UserContainer} onEnter={onUserEnter} />
       <Route path="/orders/:id" component={OrderDetail} onEnter={onOrderEnter} />

@@ -1,5 +1,4 @@
 import React from 'react'
-const fs = require('fs')
 
 export const Addproduct = ({addProductBack, categories}) => {
   return (
@@ -7,15 +6,15 @@ export const Addproduct = ({addProductBack, categories}) => {
       <h2>Add Product</h2>
       <form className="col-sm-6" onSubmit={evt => {
         evt.preventDefault()
-        addProductBack(evt.target.product_name.value, evt.target.image.value, evt.target.product_price.value, evt.target.product_description.value, evt.target.categoryId.value[0])
+        addProductBack(evt.target.product_name.value, evt.target.product_image.value, evt.target.product_price.value, evt.target.product_description.value, evt.target.categoryId.value[0])
       }}>
         <div className="form-group">
           <h5>Product Name</h5>
           <input type="text" name="product_name" className="form-control"/>
         </div>
         <div className="form-group">
-          <h5l>Product Picture</h5l>
-          <input type="file" name="product_image" className="form-control"/>
+          <h5l>Product Picture - paste a url for the product image</h5l>
+          <input type="text" name="product_image" className="form-control"/>
         </div>
         <div className="form-group">
           <h5>Product Price</h5>
