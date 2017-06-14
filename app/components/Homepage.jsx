@@ -31,10 +31,7 @@ const Homepage = () => {
       )
   return (
     <div>
-      <App />
-      <div>
-        {carouselInstance}
-      </div>
+      {carouselInstance}
     </div>
   )
 }

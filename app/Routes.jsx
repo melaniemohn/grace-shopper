@@ -29,12 +29,10 @@ import { fetchSingleOrder, fetchOrdersByUser, fetchCart } from './reducers/order
 // add this logic (to check for current user, using auth??) to the orders reducer
 
 // ----- routes component -----
-// add an index route right under "/"... <IndexRoute component={Categories} />
 const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter, onUsersEnter, onOrderEnter, onCartEnter }) => (
   <Router history={browserHistory}>
-    <Route path="/Homepage" component={Homepage}/>
-    <Redirect from="/" to="/Homepage" />
     <Route path="/" component={App} onEnter={fetchInitialData}>
+      <IndexRoute component={Homepage} />
       <Route path="/login" component={Login} />
       <Route path="/orders/cart" component={Cart} onEnter={onCartEnter} />
       <Route path="/categories" component={Categories} />
