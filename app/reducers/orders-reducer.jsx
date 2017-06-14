@@ -12,8 +12,7 @@ const SET_CART = 'SET_CART'
 
 /* setting up the cart representation */
 const groupProductsOnCart = (cart) => {
-  console.log('cart:', cart)
-  let groupCart = []
+  const groupCart = []
   let indx
   let found
   for (let i=0; i<cart.length; i++) {
@@ -93,6 +92,7 @@ export const fetchSingleOrder = (orderId) => dispatch => {
 export const fetchCart = () => dispatch => {
   axios.get('/api/orders/cart' /* , {user_id: userId} */)
   .then(res => {
+    res.data.orderItems = groupProductsOnCart(res.data.orderItems)
     dispatch(getCart(res.data))
   })
   .catch(err => console.error('Error fetching cart', err))
@@ -105,9 +105,7 @@ export const addProductToCart = (product, userId) =>
       quantity: 1,
       price: product.price,
       product_id: product.id
-    }).then(res => {
-      return dispatch(setCart(groupProductsOnCart(res.data)))
-    })
+    }).then(res => dispatch(setCart(groupProductsOnCart(res.data))))
       .catch(err => console.error('Fail to update cart', err))
 
 export default reducer
