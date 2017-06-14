@@ -12,8 +12,6 @@ const SET_CART = 'SET_CART'
 
 /* setting up the cart representation */
 const groupProductsOnCart = (cart) => {
-  debugger
-  console.log('cart:', cart)
   const groupCart = []
   let indx
   let found
