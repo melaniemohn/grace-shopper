@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory, hashHistory, Redirect } from 'react-router'
 
 // components
 // ADD MORE COMPONENTS as we write them
+import Homepage from './components/Homepage'
 import App from './components/App'
 import Login from './components/Login'
 import Users from './components/Users'
@@ -31,6 +32,8 @@ import { fetchSingleOrder, fetchOrdersByUser, fetchCart } from './reducers/order
 // add an index route right under "/"... <IndexRoute component={Categories} />
 const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter, onUsersEnter, onOrderEnter, onCartEnter }) => (
   <Router history={browserHistory}>
+    <Route path="/Homepage" component={Homepage}/>
+    <Redirect from="/" to="/Homepage" />
     <Route path="/" component={App} onEnter={fetchInitialData}>
       <Route path="/login" component={Login} />
       <Route path="/orders/cart" component={Cart} onEnter={onCartEnter} />
