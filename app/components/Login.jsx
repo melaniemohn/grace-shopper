@@ -4,12 +4,13 @@ import {login} from 'APP/app/reducers/auth'
 class Login extends React.Component {
   constructor(props) {
     super(props)
+    this.onLoginSubmit = this.onLoginSubmit.bind(this)
   }
 
   render() {
     return (
       <div>
-      <form>
+      <form onSubmit = {this.onLoginSubmit}>
         <label>Email</label>
         <input name="email" />
         <br />
@@ -34,7 +35,8 @@ class Login extends React.Component {
       email: event.target.email.value,
       password: event.target.password.value
     }
-    login(credentials)
+    console.log('LOGIN PROPS', this.props.login)
+    this.props.login(credentials.email, credentials.password)
   }
 }
 
