@@ -1,7 +1,6 @@
 import React from 'react'
 import { Glyphicon, Carousel, CarouselItem, CarouselCaption } from 'react-bootstrap'
 import { Link, browserHistory } from 'react-router'
-import App from './App'
 
 const Homepage = () => {
   const carouselInstance = (
@@ -31,10 +30,7 @@ const Homepage = () => {
       )
   return (
     <div>
-      <App />
-      <div>
-        {carouselInstance}
-      </div>
+      {carouselInstance}
     </div>
   )
 }
