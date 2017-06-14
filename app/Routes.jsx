@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory, hashHistory, Redirect } from 'react-router'
 
 // components
 // ADD MORE COMPONENTS as we write them
-import store from './store'
+import Homepage from './components/Homepage'
 import App from './components/App'
 import Login from './components/Login'
 import Users from './components/Users'
@@ -16,21 +16,25 @@ import ProductsContainer from './containers/ProductsContainer'
 import ProductContainer from './containers/ProductContainer'
 import AddProduct from './components/addProduct'
 import UserContainer from './containers/UserContainer'
+import OrderDetail from './components/OrderDetail'
+import Cart from './components/Cart'
 
 // ----- dispatchers -----
 import { fetchProducts, fetchOneProduct } from './reducers/products-reducer'
 import { fetchCategories, fetchCategory } from './reducers/category-reducer'
 import { fetchUser, fetchUsers } from './reducers/user-reducer'
+import { fetchSingleOrder, fetchOrdersByUser, fetchCart } from './reducers/orders-reducer'
+// MPM don't forget to import dispatcher to add product to cart
+// also, do we need fetchOrdersByUser from orders-reducer?? what happens for guest?
+// add this logic (to check for current user, using auth??) to the orders reducer
 
 // ----- routes component -----
-// MPM ADD SINGLE-USER ROUTE HERE AHHH
-// add an index route right under "/"...       <IndexRoute component={Categories} />
-// again, ADD MORE ROUTES as we write their components... login, user pages, cart, checkout, etc.
-// that said, we might not need all of the fetch functions that are listed... since some of that info is on state anyway
-const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter, onUsersEnter }) => (
+const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter, onUsersEnter, onOrderEnter, onCartEnter }) => (
   <Router history={browserHistory}>
     <Route path="/" component={App} onEnter={fetchInitialData}>
+      <IndexRoute component={Homepage} />
       <Route path="/login" component={Login} />
+      <Route path="/orders/cart" component={Cart} onEnter={onCartEnter} />
       <Route path="/categories" component={Categories} />
       <Route path="/categories/:id" component={CategoryContainer} onEnter={onCategoryEnter} />
       <Route path="/products" component={ProductsContainer} />
@@ -38,6 +42,7 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter
       <Route path="/add-product" component={AddProduct} onEnter={onProductEnter} />
       <Route path="/users" component={Users} onEnter={onUsersEnter}/>
       <Route path="/users/:id" component={UserContainer} onEnter={onUserEnter} />
+      <Route path="/orders/:id" component={OrderDetail} onEnter={onOrderEnter} />
     </Route>
     <Route path="*" component={NotFound} />
   </Router>
@@ -65,6 +70,13 @@ const mapDispatchToProps = dispatch => ({
   onUserEnter: (nextState) => {
     const userId = nextState.params.id
     dispatch(fetchUser(userId))
+  },
+  onOrderEnter: (nextState) => {
+    const orderId = nextState.params.id
+    dispatch(fetchSingleOrder(orderId))
+  },
+  onCartEnter: () => {
+    dispatch(fetchCart())
   }
 })
 

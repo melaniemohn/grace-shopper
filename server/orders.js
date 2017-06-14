@@ -3,19 +3,37 @@
 const db = require('APP/db')
 const Order = db.model('orders')
 const OrderItem = db.model('orderItem')
+const { selfOnly } = require('./auth.filters')
+const Products = db.model('products')
 
 module.exports = require('express').Router()
-  .get('/', // adminOnly -- KHCL
-    (req, res, next) =>
-      Order.findAll()
-        .then(allOrders => res.json(allOrders))
-        .catch(next))
+  // .get('/', // adminOnly -- KHCL (MPM: actually, I don't think we even need this route??)
+  //   (req, res, next) =>
+  //     Order.findAll()
+  //       .then(allOrders => res.json(allOrders))
+  //       .catch(next))
+  .get('/cart', (req, res, next) => {
+    console.log('in the cart!')
+    const userId = req.user
+    if (userId) {
+      Order.findOne({
+        where: {status: 'cart'},
+        include: [
+          {model: OrderItem, include: [{model: Products}]}
+        ]
+      })
+      .then(order => {
+        res.json(order)
+      })
+      .catch(next)
+    }
+  })
   .get('/:orderId', // route.param here -- KHCL
     (req, res, next) =>
       Order.findOne({ // findById -- KHCL
         where: {id: req.params.orderId},
         include: [
-          {model: OrderItem, where: {order_id: req.params.orderId}} // shouldn't need this where clause -- KHCL
+          {model: OrderItem, include: [{model: Products}]}
         ]
       })
         .then(order => {
@@ -23,8 +41,44 @@ module.exports = require('express').Router()
           res.json(order)
         })
         .catch(next))
-  .delete('/:orderId',
-    (req, res, next) =>
+  .post('/cart', /* selfOnly, */ (req, res, next) => {
+    console.log('in order put')
+    console.log(req.body)
+    const userId = req.body.user_id
+    const productId = req.body.product_id
+    const data = req.body
+    // if a user is logged update the cart on the data base
+    if (userId) {
+      Order.findOrCreate({
+        where: {
+          user_id: userId,
+          status: 'cart'
+        }
+      })
+        .spread((order, created) => OrderItem.create({
+          order_id: order.id,
+          product_id: req.body.product_id,
+          quantity: req.body.quantity,
+          price: req.body.price
+        }))
+        .then(orderItem => OrderItem.findAll({
+          where: {
+            order_id: orderItem.order_id
+          },
+          include: [Products]
+        }))
+        .then((items) => {
+          console.log('items', items)
+          res.json(items)
+        })
+        .catch(next)
+    } else {
+    }
+  })
+
+  /* else {   // if the user isn't logged go through the guest route
+    } */
+    .delete('/:orderId', (req, res, next) =>
       Order.destroy({
         where: {id: req.params.orderId}
       })

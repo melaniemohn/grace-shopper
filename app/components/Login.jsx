@@ -15,7 +15,7 @@ class Login extends React.Component {
         <br />
         <label>Password</label>
         <input name="password" type="password" />
-        <button type="submit" className="btn btn-primary" onSubmit={this.onLoginSubmit}>Submit</button>
+        <button type="submit" className="btn btn-xs btn-primary">Submit</button>
       </form>
       <p>OR</ p>
         <a
@@ -23,8 +23,9 @@ class Login extends React.Component {
           className="btn btn-xs">
           <img src = "https://i.stack.imgur.com/XzoRm.png" />
           <i className = "fa fa-google"></i>
-        </ a>
-      </ div>
+          <span>Log in with Google</span>
+        </a>
+      </div>
     )
   }
 
