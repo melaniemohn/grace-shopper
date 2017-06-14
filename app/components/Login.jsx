@@ -4,12 +4,13 @@ import {login} from 'APP/app/reducers/auth'
 class Login extends React.Component {
   constructor(props) {
     super(props)
+    this.onLoginSubmit = this.onLoginSubmit.bind(this)
   }
 
   render() {
     return (
       <div>
-      <form>
+      <form onSubmit = {this.onLoginSubmit}>
         <label>Email</label>
         <input name="email" />
         <br />
@@ -23,7 +24,6 @@ class Login extends React.Component {
           className="btn btn-xs">
           <img src = "https://i.stack.imgur.com/XzoRm.png" />
           <i className = "fa fa-google"></i>
-          <span>Log in with Google</span>
         </a>
       </div>
     )
@@ -35,7 +35,8 @@ class Login extends React.Component {
       email: event.target.email.value,
       password: event.target.password.value
     }
-    login(credentials)
+    console.log('LOGIN PROPS', this.props.login)
+    this.props.login(credentials.email, credentials.password)
   }
 }
 

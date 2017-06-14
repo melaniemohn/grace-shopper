@@ -4,6 +4,10 @@ import {connect} from 'react-redux'
 
 const mapState = () => ({ message: 'Log in' })
 
-const mapDispatch = ({ login })
+const mapDispatch = (dispatch) => ({
+  login: (username, password)=>{
+    dispatch(login(username, password))
+  }
+})
 
 export default connect(mapState, mapDispatch)(Login)

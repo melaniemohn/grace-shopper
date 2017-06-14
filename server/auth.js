@@ -142,6 +142,7 @@ auth.get('/login/:strategy', (req, res, next) => {
 })
 
 auth.post('/logout', (req, res) => {
+  console.log('HELLOOOOOO~~~~~~~~~~~~~')
   req.logout()
   res.redirect('/api/auth/whoami')
 })
