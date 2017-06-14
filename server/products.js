@@ -2,6 +2,7 @@
 
 const db = require('APP/db')
 const Product = db.model('products')
+const Review = db.model('reviews')
 
 module.exports = require('express').Router()
   .get('/',
@@ -13,8 +14,11 @@ module.exports = require('express').Router()
     // get one product
   .get('/:productId',
     (req, res, next) => {
-      const id = req.params.productId
-      Product.findById(id)
+      // const id = req.params.productId
+      Product.findOne({
+        where: {id: req.params.productId},
+        include: [{model: Review}]
+      })
       .then(product => {
         if (!product) {
           const err = new Error('Product not found')
