@@ -18,6 +18,7 @@ import AddProduct from './components/addProduct'
 import UserContainer from './containers/UserContainer'
 import OrderDetail from './components/OrderDetail'
 import Cart from './components/Cart'
+import Checkout from './components/Checkout'
 
 // ----- dispatchers -----
 import { fetchProducts, fetchOneProduct } from './reducers/products-reducer'
@@ -43,6 +44,7 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter
       <Route path="/users" component={Users} onEnter={onUsersEnter}/>
       <Route path="/users/:id" component={UserContainer} onEnter={onUserEnter} />
       <Route path="/orders/:id" component={OrderDetail} onEnter={onOrderEnter} />
+      <Route path="/checkout" component={Checkout} />
     </Route>
     <Route path="*" component={NotFound} />
   </Router>

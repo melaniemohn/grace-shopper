@@ -5,6 +5,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import StripeCheckout from 'react-stripe-checkout';
 // import functions from reducer here to update / delete items
 
 // ----- cart component -----
