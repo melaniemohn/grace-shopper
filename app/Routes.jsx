@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory, hashHistory, Redirect } from 'react-router'
 
 // components
-// ADD MORE COMPONENTS as we write them
 import Homepage from './components/Homepage'
 import App from './components/App'
 import Login from './components/Login'
@@ -24,9 +23,6 @@ import { fetchProducts, fetchOneProduct } from './reducers/products-reducer'
 import { fetchCategories, fetchCategory } from './reducers/category-reducer'
 import { fetchUser, fetchUsers } from './reducers/user-reducer'
 import { fetchSingleOrder, fetchOrdersByUser, fetchCart } from './reducers/orders-reducer'
-// MPM don't forget to import dispatcher to add product to cart
-// also, do we need fetchOrdersByUser from orders-reducer?? what happens for guest?
-// add this logic (to check for current user, using auth??) to the orders reducer
 
 // ----- routes component -----
 const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter, onUsersEnter, onOrderEnter, onCartEnter }) => (
@@ -49,7 +45,6 @@ const Routes = ({ fetchInitialData, onCategoryEnter, onProductEnter, onUserEnter
 )
 
 // ----- routes container -----
-// MPM note: in fetchInitialData, order matters!!!
 const mapStateToProps = null
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => {
