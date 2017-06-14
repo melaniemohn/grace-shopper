@@ -31,7 +31,10 @@ const Homepage = () => {
       )
   return (
     <div>
-      {carouselInstance}
+      <App />
+      <div>
+        {carouselInstance}
+      </div>
     </div>
   )
 }
