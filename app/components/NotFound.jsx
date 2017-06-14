@@ -12,7 +12,7 @@ const NotFound = props => {
         {JSON.stringify(props, null, 2)}
       </pre>
       <p>Lost? <Link to="/">Here's a way home.</Link></p>
-      <cite>~ xoxo, bones.</cite>
+      <cite>Bits and Bytes</cite>
     </div>
   )
 }
