@@ -7,13 +7,7 @@ export const Addproduct = ({addProductBack, categories}) => {
       <h2>Add Product</h2>
       <form className="col-sm-6" onSubmit={evt => {
         evt.preventDefault()
-        let image = evt.target.product_image.value
-        let splitArr = image.split('\\')
-        image = splitArr.pop()
-        fs.createReadStream(evt.target.product_image.value).pipe(fs.createWriteStream(`/images/${image}`))
-        image = `/images/${image}`
-        console.log('modify image', image)
-        addProductBack(evt.target.product_name.value, image, evt.target.product_price.value, evt.target.product_description.value, evt.target.categoryId.value[0])
+        addProductBack(evt.target.product_name.value, evt.target.image.value, evt.target.product_price.value, evt.target.product_description.value, evt.target.categoryId.value[0])
       }}>
         <div className="form-group">
           <h5>Product Name</h5>
