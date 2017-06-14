@@ -2,14 +2,10 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 
-// MPM COME BACK TO THIS
-// instead of making a page for all our categories, let's just put this in the navbar or sidebar?
-
 // ----- categories component -----
 
 export const Categories = (props) => {
   const categories = props.categories
-  // console.log('categories??', categories)
 
   return (
     <div className="container">
