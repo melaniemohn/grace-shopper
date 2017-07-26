@@ -1,6 +1,6 @@
 # Bits & Bytes
 
-![alt text](https://github.com/melaniemohn/grace-shopper/master/carousel_gif.gif)
+![alt text](https://raw.githubusercontent.com/melaniemohn/grace-shopper/master/carousel_gif.gif)
 
 Bits & Bytes is an ecommerce website that fulfills all of your programming themed snacks needs.
 
