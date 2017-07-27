@@ -2,7 +2,7 @@
 
 ![alt text](https://raw.githubusercontent.com/melaniemohn/grace-shopper/master/carousel_gif.gif)
 
-Bits & Bytes is an ecommerce website that fulfills all of your programming themed snacks needs.
+Bits & Bytes is an e-commerce website that fulfills all of your programming-themed snacking needs.
 
 You can find our live site HERE: (https://bits-and-bytes.herokuapp.com/)
 
