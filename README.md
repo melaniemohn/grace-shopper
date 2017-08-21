@@ -1,6 +1,6 @@
 # Bits & Bytes
 
-![alt text](https://raw.githubusercontent.com/melaniemohn/grace-shopper/master/carousel_gif.gif)
+![alt text](https://raw.githubusercontent.com/melaniemohn/grace-shopper/master/public/carousel_gif.gif)
 
 Bits & Bytes is an e-commerce website that fulfills all of your programming-themed snacking needs.
 
@@ -9,14 +9,14 @@ You can find our live site HERE: (https://bits-and-bytes.herokuapp.com/)
 ## Technologies Used:
 
  * React
- * React-Redux 
+ * React-Redux
  * React-Router
  * React-Bootstrap
  * React-Stripe-Checkout
  * Express
  * Node.js
- * Sequelize and PostgreSQL 
- * Passport 
+ * Sequelize and PostgreSQL
+ * Passport
  * Webpack
  * Babel
 
