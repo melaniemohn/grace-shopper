@@ -5,7 +5,6 @@ import Product from '../components/Product'
 import { addProductToCart } from '../reducers/orders-reducer'
 
 const mapStateToProps = (state) => {
-  console.log('STATE', state)
   let userId
   if (state.auth) { userId = state.auth.id }
   return {
@@ -16,7 +15,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProp = (dispatch) => ({
   onAddProductToCart: (product, userId) => {
-    console.log('add clicked')
     dispatch(addProductToCart(product, userId))
   }
 })

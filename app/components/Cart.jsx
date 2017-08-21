@@ -5,6 +5,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import StripeCheckout from 'react-stripe-checkout';
 // import functions from reducer here to update / delete items
 
 // ----- cart component -----
@@ -37,7 +38,7 @@ export const Cart = (props) => {
         </tbody>
       </table>
       <Link to={'/checkout'}>
-        <button className="btn-default">Checkout</button>
+        <button className="btn-default">Proceed to Checkout</button>
       </Link>
     </div>
   )

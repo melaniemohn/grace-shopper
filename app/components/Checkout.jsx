@@ -1,25 +1,58 @@
 import React from 'react'
-import { Link } from 'react-router'
+import StripeCheckout from 'react-stripe-checkout';
 
-const Checkout = (props) => {
-  return (
-    <form action="/charge" method="post">
-      <script
-        src="https://checkout.stripe.com/checkout.js"
-        class="stripe-button"
-        data-key="pk_test_cAXaaXXjYxU103z7UYR4fzHE"
-        data-amount="2000"
-        data-name="Bits and Bytes"
-        data-description="Your order"
-        data-image="/public/images/pancake-emoji.png"
-        data-locale="auto"
-        data-zip-code="true"
-        data-label="Checkout with Card"
-        data-allow-remember-me="true"
-      >
-      </script>
-    </form>
-  )
+export default class Checkout extends React.Component {
+  onToken = (token) => {
+    fetch('/save-stripe-token', {
+      method: 'POST',
+      body: JSON.stringify(token),
+    }).then(response => {
+      response.json().then(data => {
+        alert(`We are in business, ${data.email}`);
+      });
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>Shipping Information:</h3>
+        <form>
+          <div className="form-group">
+            <label>Address Line 1:</label>
+            <input type="text" name="address-line-1" className="form-contol"/>
+          </div>
+          <div className="form-group">
+            <label>Address Line 2:</label>
+            <input type="text" name="address-line-2" className="form-contol"/>
+          </div>
+          <div className="form-group">
+            <label>City:</label>
+            <input type="text" name="city" className="form-contol"/>
+          </div>
+          <div className="form-group">
+            <label>State/Province:</label>
+            <input type="text" name="state" className="form-contol"/>
+          </div>
+          <div className="form-group">
+            <label>ZIP/Postal Code:</label>
+            <input type="text" name="zip" className="form-contol"/>
+          </div>
+          <div className="form-group">
+            <label>Select Country:</label>
+            <select>
+            	<option value="AU">Australia</option>
+            	<option value="CA">Canada</option>
+            	<option value="NZ">New Zealand</option>
+            	<option value="US">United States</option>
+            </select>
+          </div>
+        </form>
+        <StripeCheckout
+          token={this.onToken}
+          stripeKey="pk_test_a1c8vlzHpqWvQKVOTDjYQ1DX"
+        />
+      </div>
+    )
+  }
 }
-
-export default Checkout
