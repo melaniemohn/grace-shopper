@@ -21,7 +21,7 @@ class Login extends React.Component {
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
         <p>OR</p>
-        <a href="api/auth/login/google" className="btn btn-danger" role="button"><i className="fa fa-google"></i>Login with Google</a>
+        <a href="api/auth/login/google" className="btn btn-danger" role="button"><i className="fa fa-google"></i> Login with Google</a>
       </div>
     )
   }
