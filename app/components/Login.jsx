@@ -11,13 +11,16 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <form onSubmit = {this.onLoginSubmit}>
-          <label>Email</label>
-          <input name="email" />
-          <br />
-          <label>Password</label>
-          <input name="password" type="password" />
+      <div className="col-xs-5">
+        <form onSubmit={this.onLoginSubmit}>
+          <div className="form-group">
+            <label>Email</label>
+            <input name="email" type="email" className="col-2 form-control" />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input name="password" type="password" className="col-2 form-control" />
+          </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
         <p>OR</p>
