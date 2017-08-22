@@ -11,7 +11,8 @@ public/bundle.js.map
 # NPM errors
 npm-debug.log
 
-# secret
+# secrets
+secrets.js
 
 .idea/workspace.xml
 .vscode
