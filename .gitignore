@@ -16,3 +16,5 @@ secrets.js
 
 .idea/workspace.xml
 .vscode
+
+.DS_Store
